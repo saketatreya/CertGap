@@ -1,0 +1,9 @@
+{
+  "env_id": "Hopper-v5",
+  "final_J": 636.3108752469553,
+  "median_cert_gap": -223.88158225123436,
+  "n_updates": 147,
+  "resolved_env_id": "Hopper-v5",
+  "runtime_seconds": 454.3972930908203,
+  "seed": 6
+}

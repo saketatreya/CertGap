@@ -1,0 +1,11 @@
+{
+  "algo": "ppo",
+  "env_id": "Walker2d-v5",
+  "final_J": 500.2191246394257,
+  "median_cert_gap": -273.58165022292195,
+  "median_eps_u": 0.36202532052993774,
+  "n_updates": 147,
+  "resolved_env_id": "Walker2d-v5",
+  "runtime_seconds": 1344.4139709472656,
+  "seed": 2
+}

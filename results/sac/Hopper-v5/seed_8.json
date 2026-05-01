@@ -1,0 +1,11 @@
+{
+  "algo": "sac",
+  "env_id": "Hopper-v5",
+  "final_J": 432.3632132934005,
+  "median_cert_gap": NaN,
+  "median_eps_u": 8.008628845214844,
+  "n_updates": 40,
+  "resolved_env_id": "Hopper-v5",
+  "runtime_seconds": 915.2637541294098,
+  "seed": 8
+}

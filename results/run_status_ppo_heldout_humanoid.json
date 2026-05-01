@@ -1,0 +1,427 @@
+{
+  "n_done": 20,
+  "n_failed": 0,
+  "runs": [
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "Humanoid-v5",
+        "--seed",
+        "0",
+        "--total-timesteps",
+        "500000",
+        "--log-heldout",
+        "--heldout-batch-size",
+        "500",
+        "--output",
+        "results/heldout_humanoid/seed_0.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.00150299072265625,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "Humanoid-v5",
+        "--seed",
+        "1",
+        "--total-timesteps",
+        "500000",
+        "--log-heldout",
+        "--heldout-batch-size",
+        "500",
+        "--output",
+        "results/heldout_humanoid/seed_1.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.0007839202880859375,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "Humanoid-v5",
+        "--seed",
+        "2",
+        "--total-timesteps",
+        "500000",
+        "--log-heldout",
+        "--heldout-batch-size",
+        "500",
+        "--output",
+        "results/heldout_humanoid/seed_2.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.0007359981536865234,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "Humanoid-v5",
+        "--seed",
+        "3",
+        "--total-timesteps",
+        "500000",
+        "--log-heldout",
+        "--heldout-batch-size",
+        "500",
+        "--output",
+        "results/heldout_humanoid/seed_3.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.0007188320159912109,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "Humanoid-v5",
+        "--seed",
+        "4",
+        "--total-timesteps",
+        "500000",
+        "--log-heldout",
+        "--heldout-batch-size",
+        "500",
+        "--output",
+        "results/heldout_humanoid/seed_4.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.0007200241088867188,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "Humanoid-v5",
+        "--seed",
+        "5",
+        "--total-timesteps",
+        "500000",
+        "--log-heldout",
+        "--heldout-batch-size",
+        "500",
+        "--output",
+        "results/heldout_humanoid/seed_5.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.0007128715515136719,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "Humanoid-v5",
+        "--seed",
+        "6",
+        "--total-timesteps",
+        "500000",
+        "--log-heldout",
+        "--heldout-batch-size",
+        "500",
+        "--output",
+        "results/heldout_humanoid/seed_6.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.0008089542388916016,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "Humanoid-v5",
+        "--seed",
+        "7",
+        "--total-timesteps",
+        "500000",
+        "--log-heldout",
+        "--heldout-batch-size",
+        "500",
+        "--output",
+        "results/heldout_humanoid/seed_7.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.0015139579772949219,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "Humanoid-v5",
+        "--seed",
+        "8",
+        "--total-timesteps",
+        "500000",
+        "--log-heldout",
+        "--heldout-batch-size",
+        "500",
+        "--output",
+        "results/heldout_humanoid/seed_8.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.0008080005645751953,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "Humanoid-v5",
+        "--seed",
+        "9",
+        "--total-timesteps",
+        "500000",
+        "--log-heldout",
+        "--heldout-batch-size",
+        "500",
+        "--output",
+        "results/heldout_humanoid/seed_9.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.0008749961853027344,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "Humanoid-v5",
+        "--seed",
+        "10",
+        "--total-timesteps",
+        "500000",
+        "--log-heldout",
+        "--heldout-batch-size",
+        "500",
+        "--output",
+        "results/heldout_humanoid/seed_10.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.0017242431640625,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "Humanoid-v5",
+        "--seed",
+        "11",
+        "--total-timesteps",
+        "500000",
+        "--log-heldout",
+        "--heldout-batch-size",
+        "500",
+        "--output",
+        "results/heldout_humanoid/seed_11.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.0007750988006591797,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "Humanoid-v5",
+        "--seed",
+        "12",
+        "--total-timesteps",
+        "500000",
+        "--log-heldout",
+        "--heldout-batch-size",
+        "500",
+        "--output",
+        "results/heldout_humanoid/seed_12.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.0023250579833984375,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "Humanoid-v5",
+        "--seed",
+        "13",
+        "--total-timesteps",
+        "500000",
+        "--log-heldout",
+        "--heldout-batch-size",
+        "500",
+        "--output",
+        "results/heldout_humanoid/seed_13.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.001934051513671875,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "Humanoid-v5",
+        "--seed",
+        "14",
+        "--total-timesteps",
+        "500000",
+        "--log-heldout",
+        "--heldout-batch-size",
+        "500",
+        "--output",
+        "results/heldout_humanoid/seed_14.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.0007688999176025391,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "Humanoid-v5",
+        "--seed",
+        "15",
+        "--total-timesteps",
+        "500000",
+        "--log-heldout",
+        "--heldout-batch-size",
+        "500",
+        "--output",
+        "results/heldout_humanoid/seed_15.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.0025641918182373047,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "Humanoid-v5",
+        "--seed",
+        "16",
+        "--total-timesteps",
+        "500000",
+        "--log-heldout",
+        "--heldout-batch-size",
+        "500",
+        "--output",
+        "results/heldout_humanoid/seed_16.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.0031070709228515625,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "Humanoid-v5",
+        "--seed",
+        "17",
+        "--total-timesteps",
+        "500000",
+        "--log-heldout",
+        "--heldout-batch-size",
+        "500",
+        "--output",
+        "results/heldout_humanoid/seed_17.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.0007498264312744141,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "Humanoid-v5",
+        "--seed",
+        "18",
+        "--total-timesteps",
+        "500000",
+        "--log-heldout",
+        "--heldout-batch-size",
+        "500",
+        "--output",
+        "results/heldout_humanoid/seed_18.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.0007460117340087891,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "Humanoid-v5",
+        "--seed",
+        "19",
+        "--total-timesteps",
+        "500000",
+        "--log-heldout",
+        "--heldout-batch-size",
+        "500",
+        "--output",
+        "results/heldout_humanoid/seed_19.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.0014200210571289062,
+      "rc": 0
+    }
+  ],
+  "started_at": 1777570739.1210618
+}

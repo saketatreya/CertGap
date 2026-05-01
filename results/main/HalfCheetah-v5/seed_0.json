@@ -1,0 +1,11 @@
+{
+  "algo": "ppo",
+  "env_id": "HalfCheetah-v5",
+  "final_J": 1500.9102204173241,
+  "median_cert_gap": -574.702187374847,
+  "median_eps_u": 4.416628837585449,
+  "n_updates": 147,
+  "resolved_env_id": "HalfCheetah-v5",
+  "runtime_seconds": 452.92391085624695,
+  "seed": 0
+}

@@ -1,0 +1,9 @@
+{
+  "env_id": "HalfCheetah-v5",
+  "final_J": 927.9422974440489,
+  "median_cert_gap": -285.4966619025507,
+  "n_updates": 147,
+  "resolved_env_id": "HalfCheetah-v5",
+  "runtime_seconds": 523.2108442783356,
+  "seed": 10
+}

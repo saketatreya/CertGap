@@ -1,0 +1,121 @@
+{
+  "n_done": 6,
+  "n_failed": 0,
+  "runs": [
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "Humanoid-v5",
+        "--seed",
+        "0",
+        "--total-timesteps",
+        "500000",
+        "--log-eps-u-variants",
+        "--output",
+        "results/eps_u_variants/Humanoid-v5/seed_0.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.003010988235473633,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "Humanoid-v5",
+        "--seed",
+        "1",
+        "--total-timesteps",
+        "500000",
+        "--log-eps-u-variants",
+        "--output",
+        "results/eps_u_variants/Humanoid-v5/seed_1.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.0015227794647216797,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "Humanoid-v5",
+        "--seed",
+        "2",
+        "--total-timesteps",
+        "500000",
+        "--log-eps-u-variants",
+        "--output",
+        "results/eps_u_variants/Humanoid-v5/seed_2.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.0032308101654052734,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "Humanoid-v5",
+        "--seed",
+        "3",
+        "--total-timesteps",
+        "500000",
+        "--log-eps-u-variants",
+        "--output",
+        "results/eps_u_variants/Humanoid-v5/seed_3.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.0008032321929931641,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "Humanoid-v5",
+        "--seed",
+        "4",
+        "--total-timesteps",
+        "500000",
+        "--log-eps-u-variants",
+        "--output",
+        "results/eps_u_variants/Humanoid-v5/seed_4.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.0007560253143310547,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "Humanoid-v5",
+        "--seed",
+        "5",
+        "--total-timesteps",
+        "500000",
+        "--log-eps-u-variants",
+        "--output",
+        "results/eps_u_variants/Humanoid-v5/seed_5.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.00074005126953125,
+      "rc": 0
+    }
+  ],
+  "started_at": 1777570742.256255
+}

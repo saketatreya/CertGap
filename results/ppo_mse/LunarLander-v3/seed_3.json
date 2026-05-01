@@ -1,0 +1,11 @@
+{
+  "algo": "ppo",
+  "env_id": "LunarLander-v3",
+  "final_J": 73.3286332905744,
+  "median_cert_gap": 36.06125246482419,
+  "median_eps_u": 1.7079849243164062,
+  "n_updates": 147,
+  "resolved_env_id": "LunarLander-v3",
+  "runtime_seconds": 313.23340702056885,
+  "seed": 3
+}

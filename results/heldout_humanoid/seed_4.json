@@ -1,0 +1,9 @@
+{
+  "env_id": "Humanoid-v5",
+  "final_J": 447.0668991609322,
+  "median_cert_gap": -135.9478592024784,
+  "n_updates": 245,
+  "resolved_env_id": "Humanoid-v5",
+  "runtime_seconds": 2159.288344860077,
+  "seed": 4
+}

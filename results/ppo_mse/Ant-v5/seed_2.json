@@ -1,0 +1,11 @@
+{
+  "algo": "ppo",
+  "env_id": "Ant-v5",
+  "final_J": 1487.5033100894077,
+  "median_cert_gap": -527.1334036250262,
+  "median_eps_u": 9.911179542541504,
+  "n_updates": 147,
+  "resolved_env_id": "Ant-v5",
+  "runtime_seconds": 871.099268913269,
+  "seed": 2
+}

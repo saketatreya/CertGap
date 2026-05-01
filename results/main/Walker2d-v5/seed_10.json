@@ -1,0 +1,9 @@
+{
+  "env_id": "Walker2d-v5",
+  "final_J": 547.6983322074841,
+  "median_cert_gap": -247.74797876426464,
+  "n_updates": 147,
+  "resolved_env_id": "Walker2d-v5",
+  "runtime_seconds": 526.0117881298065,
+  "seed": 10
+}

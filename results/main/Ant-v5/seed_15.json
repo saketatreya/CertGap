@@ -1,0 +1,9 @@
+{
+  "env_id": "Ant-v5",
+  "final_J": 730.8263847426056,
+  "median_cert_gap": -521.5564867315993,
+  "n_updates": 147,
+  "resolved_env_id": "Ant-v5",
+  "runtime_seconds": 506.47153902053833,
+  "seed": 15
+}

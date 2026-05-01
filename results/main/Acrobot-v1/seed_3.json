@@ -1,0 +1,9 @@
+{
+  "env_id": "Acrobot-v1",
+  "final_J": -77.14814814814815,
+  "median_cert_gap": 29.764949557681874,
+  "n_updates": 147,
+  "resolved_env_id": "Acrobot-v1",
+  "runtime_seconds": 458.4985818862915,
+  "seed": 3
+}

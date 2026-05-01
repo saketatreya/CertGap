@@ -1,0 +1,153 @@
+Metadata-Version: 2.4
+Name: certgap
+Version: 0.1.0
+Summary: The Certification Gap: an identity-based critic-quality diagnostic for deep RL.
+License: MIT
+Requires-Python: >=3.10
+Description-Content-Type: text/markdown
+Requires-Dist: torch>=2.1
+Requires-Dist: numpy>=1.24
+Requires-Dist: scipy>=1.11
+Requires-Dist: matplotlib>=3.7
+Requires-Dist: gymnasium[mujoco]>=1.0
+Requires-Dist: mujoco>=3.0
+Requires-Dist: pandas>=2.0
+Requires-Dist: seaborn>=0.13
+Requires-Dist: scikit-learn>=1.4
+Requires-Dist: tqdm>=4.66
+Provides-Extra: dev
+Requires-Dist: pytest>=7.0; extra == "dev"
+Requires-Dist: pytest-xdist>=3.0; extra == "dev"
+
+# The Certification Gap
+
+Code and data for *The Certification Gap: An Identity-Based Critic Quality
+Diagnostic for Deep Reinforcement Learning* (NeurIPS 2026 D&B, under
+submission). See `paper.pdf` for the manuscript.
+
+The paper shows empirically that **the Bellman residual `ε_u` — the
+canonical critic-quality scalar logged by every PPO/SAC implementation we
+surveyed — is uninformative as a per-update predictor of policy harm**
+(AUROC 0.45 across 8 environments × 20 seeds, at chance), and that an
+algebraic decomposition of the policy improvement
+(`J(π_{k+1}) − J(π_k) = A_k − Δ̂_k`) yields a metric whose start-state-bias
+component `Δ̂_k` is informative (AUROC 0.68 pooled, dominates `ε_u` in
+158 of 159 paired seeds, p < 10⁻²⁷).
+
+## Layout
+
+```
+paper.pdf                    # the manuscript
+DATASHEET.md                 # Gebru-style data sheet for the released benchmark
+REPRODUCIBILITY.md           # NeurIPS reproducibility checklist
+LICENSE                      # MIT
+pyproject.toml               # dependency pinning
+Makefile                     # one-command targets
+
+certgap/                     # the python package
+├── common/                  # configs, networks, rollouts, GAE, metrics, env utils
+├── tabular/                 # exact-DP RandomMDP + REINFORCE; identity verification
+├── geometry/                # policy Jacobian + certified-ratio analysis
+├── ppo.py                   # single train_ppo() with paper-aligned per-update logging
+├── runners/
+│   ├── run_one.py           # single (env, seed, hp_cell) launcher
+│   └── sweep.py             # multiprocess pool over a grid spec
+└── analysis/
+    ├── harm_prediction.py   # AUROC, AUPRC, calibration deciles, bootstrap CIs
+    ├── correlations.py      # Pearson / Spearman / paired Wilcoxon (Fisher-z CIs)
+    ├── factorial.py         # hyperparameter heatmap aggregation
+    └── estimator_agreement.py  # train vs held-out Δ̂ regression
+
+figures/                     # one script per paper figure → PDF in figures/out/
+├── fig1_auroc_bars.py
+├── fig2_calibration.py
+├── fig3_factorial.py
+├── fig4_concurrent_vs_lag1.py
+├── fig5_pooled_scatter.py
+└── appendix/
+    ├── figA1_tabular_identity.py
+    ├── figA2_decomposition.py
+    ├── figA3_eps_u_variants.py
+    ├── figA4_lag1_autocorrelation.py
+    └── figA5_trajectory.py
+
+results/                     # released benchmark dataset (~70k labeled examples)
+├── main/                    # 8 envs × 20 seeds = 160 PPO runs
+├── factorial_lunarlander/   # 16 cells × 5–20 seeds
+├── factorial_halfcheetah/   # 9 cells × 5–20 seeds
+├── factorial_hopper/        # 9 cells × 5 seeds
+├── eps_u_variants/          # 6 seeds, Humanoid (logs three ε_u definitions)
+├── heldout_humanoid/        # 20 seeds, Humanoid (logs train + held-out Δ̂)
+└── tabular/                 # 24 NPG-on-RandomMDP CSVs (identity verification)
+
+scripts/
+├── run_all.py               # master runner (every sweep, --skip-if-exists)
+├── build_table1.py          # compiles paper Table 1 from results/main/
+├── analyze_preliminary.py   # quick overview of every sweep's headline numbers
+└── run_*.sh                 # individual entry points per sweep
+
+tests/                       # pytest smoke tests
+slop(ARCHIVE,IGNORE)/        # frozen exploration archive — not used by paper
+```
+
+## Setup
+
+```bash
+python -m venv .venv
+.venv/bin/pip install -e ".[dev]"
+```
+
+MuJoCo experiments require `gymnasium[mujoco]>=1.0` and `mujoco>=3.0`; the
+install line pulls both.
+
+## Reproducing the paper
+
+**One command, regenerate every figure and the table from cached results:**
+
+```bash
+make figures
+.venv/bin/python -m scripts.build_table1
+```
+
+That produces 5 main + 5 appendix PDFs in `figures/out/`, plus
+`figures/out/table1.tex`. Total time: under two minutes on a laptop.
+
+**One command, full pipeline from scratch (≈13 wall hours at 6 workers):**
+
+```bash
+.venv/bin/python scripts/run_all.py --workers 6 --skip-if-exists
+```
+
+`--skip-if-exists` makes this idempotent — if every pickle is already on
+disk, it's a no-op.
+
+**Smoke test (~5 minutes, no MuJoCo needed):**
+
+```bash
+make verify
+```
+
+## Reproducing individual sweeps
+
+| Paper section | Sweep | Command |
+|---|---|---|
+| §3 main grid | 8 envs × 20 seeds | `bash scripts/run_main_discrete.sh && bash scripts/run_main_mujoco.sh` |
+| §4.3 LL factorial | 4×4 × 5 seeds | `bash scripts/run_factorial_lunarlander.sh` |
+| §4.3 HC factorial | 3×2 + vlr × 5 seeds | `bash scripts/run_factorial_halfcheetah.sh` |
+| §4.3 Hopper factorial | 3×2 + vlr × 5 seeds | `bash scripts/run_factorial_hopper.sh` |
+| §4.3 estimator agreement | Humanoid × 20 seeds with held-out logging | `bash scripts/run_heldout_humanoid.sh` |
+| §4.1 ε_u variants | Humanoid × 6 seeds with all three ε_u definitions | `bash scripts/run_eps_u_variants.sh` |
+| Appendix A1 tabular | 3 RandomMDP families × 8 seeds | `bash scripts/run_tabular.sh` |
+
+## Citing
+
+If you use this dataset or code, please cite the paper (BibTeX in the
+camera-ready version) and the dataset DOI (set on submission).
+
+## License
+
+- Code: MIT (`LICENSE`).
+- Data: CC-BY 4.0.
+
+See `DATASHEET.md` for the full data sheet and `REPRODUCIBILITY.md` for the
+NeurIPS reproducibility checklist.

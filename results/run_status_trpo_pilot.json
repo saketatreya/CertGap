@@ -1,0 +1,407 @@
+{
+  "n_done": 20,
+  "n_failed": 0,
+  "runs": [
+    {
+      "args": [
+        "--algo",
+        "trpo",
+        "--env",
+        "LunarLander-v3",
+        "--seed",
+        "0",
+        "--total-timesteps",
+        "150000",
+        "--eps-u-kind",
+        "mse",
+        "--output",
+        "results/trpo/LunarLander-v3/seed_0.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.0021059513092041016,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "trpo",
+        "--env",
+        "LunarLander-v3",
+        "--seed",
+        "5",
+        "--total-timesteps",
+        "150000",
+        "--eps-u-kind",
+        "mse",
+        "--output",
+        "results/trpo/LunarLander-v3/seed_5.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 104.11585402488708,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "trpo",
+        "--env",
+        "LunarLander-v3",
+        "--seed",
+        "1",
+        "--total-timesteps",
+        "150000",
+        "--eps-u-kind",
+        "mse",
+        "--output",
+        "results/trpo/LunarLander-v3/seed_1.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 105.10556817054749,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "trpo",
+        "--env",
+        "LunarLander-v3",
+        "--seed",
+        "3",
+        "--total-timesteps",
+        "150000",
+        "--eps-u-kind",
+        "mse",
+        "--output",
+        "results/trpo/LunarLander-v3/seed_3.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 105.2323899269104,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "trpo",
+        "--env",
+        "LunarLander-v3",
+        "--seed",
+        "2",
+        "--total-timesteps",
+        "150000",
+        "--eps-u-kind",
+        "mse",
+        "--output",
+        "results/trpo/LunarLander-v3/seed_2.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 108.34845399856567,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "trpo",
+        "--env",
+        "LunarLander-v3",
+        "--seed",
+        "4",
+        "--total-timesteps",
+        "150000",
+        "--eps-u-kind",
+        "mse",
+        "--output",
+        "results/trpo/LunarLander-v3/seed_4.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 108.6841778755188,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "trpo",
+        "--env",
+        "LunarLander-v3",
+        "--seed",
+        "6",
+        "--total-timesteps",
+        "150000",
+        "--eps-u-kind",
+        "mse",
+        "--output",
+        "results/trpo/LunarLander-v3/seed_6.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 110.19695496559143,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "trpo",
+        "--env",
+        "LunarLander-v3",
+        "--seed",
+        "7",
+        "--total-timesteps",
+        "150000",
+        "--eps-u-kind",
+        "mse",
+        "--output",
+        "results/trpo/LunarLander-v3/seed_7.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 111.82292890548706,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "trpo",
+        "--env",
+        "LunarLander-v3",
+        "--seed",
+        "8",
+        "--total-timesteps",
+        "150000",
+        "--eps-u-kind",
+        "mse",
+        "--output",
+        "results/trpo/LunarLander-v3/seed_8.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 120.24270582199097,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "trpo",
+        "--env",
+        "LunarLander-v3",
+        "--seed",
+        "9",
+        "--total-timesteps",
+        "150000",
+        "--eps-u-kind",
+        "mse",
+        "--output",
+        "results/trpo/LunarLander-v3/seed_9.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 122.23113894462585,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "trpo",
+        "--env",
+        "Hopper-v5",
+        "--seed",
+        "0",
+        "--total-timesteps",
+        "150000",
+        "--eps-u-kind",
+        "mse",
+        "--output",
+        "results/trpo/Hopper-v5/seed_0.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 169.49779295921326,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "trpo",
+        "--env",
+        "Hopper-v5",
+        "--seed",
+        "2",
+        "--total-timesteps",
+        "150000",
+        "--eps-u-kind",
+        "mse",
+        "--output",
+        "results/trpo/Hopper-v5/seed_2.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 168.44156694412231,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "trpo",
+        "--env",
+        "Hopper-v5",
+        "--seed",
+        "1",
+        "--total-timesteps",
+        "150000",
+        "--eps-u-kind",
+        "mse",
+        "--output",
+        "results/trpo/Hopper-v5/seed_1.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 172.60509395599365,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "trpo",
+        "--env",
+        "Hopper-v5",
+        "--seed",
+        "3",
+        "--total-timesteps",
+        "150000",
+        "--eps-u-kind",
+        "mse",
+        "--output",
+        "results/trpo/Hopper-v5/seed_3.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 171.10047507286072,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "trpo",
+        "--env",
+        "Hopper-v5",
+        "--seed",
+        "4",
+        "--total-timesteps",
+        "150000",
+        "--eps-u-kind",
+        "mse",
+        "--output",
+        "results/trpo/Hopper-v5/seed_4.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 171.43391013145447,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "trpo",
+        "--env",
+        "Hopper-v5",
+        "--seed",
+        "5",
+        "--total-timesteps",
+        "150000",
+        "--eps-u-kind",
+        "mse",
+        "--output",
+        "results/trpo/Hopper-v5/seed_5.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 140.2526741027832,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "trpo",
+        "--env",
+        "Hopper-v5",
+        "--seed",
+        "6",
+        "--total-timesteps",
+        "150000",
+        "--eps-u-kind",
+        "mse",
+        "--output",
+        "results/trpo/Hopper-v5/seed_6.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 141.04478812217712,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "trpo",
+        "--env",
+        "Hopper-v5",
+        "--seed",
+        "7",
+        "--total-timesteps",
+        "150000",
+        "--eps-u-kind",
+        "mse",
+        "--output",
+        "results/trpo/Hopper-v5/seed_7.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 119.3961021900177,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "trpo",
+        "--env",
+        "Hopper-v5",
+        "--seed",
+        "8",
+        "--total-timesteps",
+        "150000",
+        "--eps-u-kind",
+        "mse",
+        "--output",
+        "results/trpo/Hopper-v5/seed_8.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 119.16190314292908,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "trpo",
+        "--env",
+        "Hopper-v5",
+        "--seed",
+        "9",
+        "--total-timesteps",
+        "150000",
+        "--eps-u-kind",
+        "mse",
+        "--output",
+        "results/trpo/Hopper-v5/seed_9.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 117.22592496871948,
+      "rc": 0
+    }
+  ],
+  "started_at": 1777570748.4565709
+}

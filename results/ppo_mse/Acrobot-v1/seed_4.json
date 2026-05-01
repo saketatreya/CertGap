@@ -1,0 +1,11 @@
+{
+  "algo": "ppo",
+  "env_id": "Acrobot-v1",
+  "final_J": -79.8,
+  "median_cert_gap": 30.19984154467997,
+  "median_eps_u": 2.9525208473205566,
+  "n_updates": 147,
+  "resolved_env_id": "Acrobot-v1",
+  "runtime_seconds": 496.33196210861206,
+  "seed": 4
+}

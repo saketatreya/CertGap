@@ -1,0 +1,9 @@
+{
+  "env_id": "LunarLander-v3",
+  "final_J": 92.17694275578843,
+  "median_cert_gap": 19.914312392700637,
+  "n_updates": 147,
+  "resolved_env_id": "LunarLander-v3",
+  "runtime_seconds": 236.03780722618103,
+  "seed": 9
+}

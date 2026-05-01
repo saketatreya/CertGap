@@ -1,0 +1,52 @@
+{
+  "runs": [
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "Humanoid-v5",
+        "--seed",
+        "0",
+        "--total-timesteps",
+        "100000",
+        "--output",
+        "results/main/Humanoid-v5/seed_0.pkl",
+        "--quiet"
+      ],
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "Hopper-v5",
+        "--seed",
+        "0",
+        "--total-timesteps",
+        "100000",
+        "--output",
+        "results/main/Hopper-v5/seed_0.pkl",
+        "--quiet"
+      ],
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "HalfCheetah-v5",
+        "--seed",
+        "0",
+        "--total-timesteps",
+        "100000",
+        "--output",
+        "results/main/HalfCheetah-v5/seed_0.pkl",
+        "--quiet"
+      ],
+      "rc": 0
+    }
+  ]
+}

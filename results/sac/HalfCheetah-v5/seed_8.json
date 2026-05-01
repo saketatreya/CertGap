@@ -1,0 +1,11 @@
+{
+  "algo": "sac",
+  "env_id": "HalfCheetah-v5",
+  "final_J": 2017.5786159044753,
+  "median_cert_gap": NaN,
+  "median_eps_u": 2.1900954246520996,
+  "n_updates": 40,
+  "resolved_env_id": "HalfCheetah-v5",
+  "runtime_seconds": 820.591502904892,
+  "seed": 8
+}

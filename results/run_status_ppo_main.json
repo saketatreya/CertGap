@@ -1,0 +1,2887 @@
+{
+  "n_done": 160,
+  "n_failed": 0,
+  "runs": [
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "LunarLander-v3",
+        "--seed",
+        "0",
+        "--total-timesteps",
+        "300000",
+        "--output",
+        "results/main/LunarLander-v3/seed_0.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.0014159679412841797,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "LunarLander-v3",
+        "--seed",
+        "1",
+        "--total-timesteps",
+        "300000",
+        "--output",
+        "results/main/LunarLander-v3/seed_1.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.002226114273071289,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "LunarLander-v3",
+        "--seed",
+        "2",
+        "--total-timesteps",
+        "300000",
+        "--output",
+        "results/main/LunarLander-v3/seed_2.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.0027692317962646484,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "LunarLander-v3",
+        "--seed",
+        "3",
+        "--total-timesteps",
+        "300000",
+        "--output",
+        "results/main/LunarLander-v3/seed_3.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.0018219947814941406,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "LunarLander-v3",
+        "--seed",
+        "4",
+        "--total-timesteps",
+        "300000",
+        "--output",
+        "results/main/LunarLander-v3/seed_4.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.0033528804779052734,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "LunarLander-v3",
+        "--seed",
+        "5",
+        "--total-timesteps",
+        "300000",
+        "--output",
+        "results/main/LunarLander-v3/seed_5.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.0008041858673095703,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "LunarLander-v3",
+        "--seed",
+        "6",
+        "--total-timesteps",
+        "300000",
+        "--output",
+        "results/main/LunarLander-v3/seed_6.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.0008399486541748047,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "LunarLander-v3",
+        "--seed",
+        "7",
+        "--total-timesteps",
+        "300000",
+        "--output",
+        "results/main/LunarLander-v3/seed_7.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.0007443428039550781,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "LunarLander-v3",
+        "--seed",
+        "8",
+        "--total-timesteps",
+        "300000",
+        "--output",
+        "results/main/LunarLander-v3/seed_8.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.003155231475830078,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "LunarLander-v3",
+        "--seed",
+        "9",
+        "--total-timesteps",
+        "300000",
+        "--output",
+        "results/main/LunarLander-v3/seed_9.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.0007340908050537109,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "LunarLander-v3",
+        "--seed",
+        "10",
+        "--total-timesteps",
+        "300000",
+        "--output",
+        "results/main/LunarLander-v3/seed_10.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.0007503032684326172,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "LunarLander-v3",
+        "--seed",
+        "11",
+        "--total-timesteps",
+        "300000",
+        "--output",
+        "results/main/LunarLander-v3/seed_11.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.0014410018920898438,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "LunarLander-v3",
+        "--seed",
+        "12",
+        "--total-timesteps",
+        "300000",
+        "--output",
+        "results/main/LunarLander-v3/seed_12.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.0008080005645751953,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "LunarLander-v3",
+        "--seed",
+        "13",
+        "--total-timesteps",
+        "300000",
+        "--output",
+        "results/main/LunarLander-v3/seed_13.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.003511667251586914,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "LunarLander-v3",
+        "--seed",
+        "14",
+        "--total-timesteps",
+        "300000",
+        "--output",
+        "results/main/LunarLander-v3/seed_14.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.0008120536804199219,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "LunarLander-v3",
+        "--seed",
+        "15",
+        "--total-timesteps",
+        "300000",
+        "--output",
+        "results/main/LunarLander-v3/seed_15.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.002680063247680664,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "LunarLander-v3",
+        "--seed",
+        "16",
+        "--total-timesteps",
+        "300000",
+        "--output",
+        "results/main/LunarLander-v3/seed_16.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.005980014801025391,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "LunarLander-v3",
+        "--seed",
+        "17",
+        "--total-timesteps",
+        "300000",
+        "--output",
+        "results/main/LunarLander-v3/seed_17.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.0007507801055908203,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "LunarLander-v3",
+        "--seed",
+        "18",
+        "--total-timesteps",
+        "300000",
+        "--output",
+        "results/main/LunarLander-v3/seed_18.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.0007479190826416016,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "LunarLander-v3",
+        "--seed",
+        "19",
+        "--total-timesteps",
+        "300000",
+        "--output",
+        "results/main/LunarLander-v3/seed_19.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.0007300376892089844,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "CartPole-v1",
+        "--seed",
+        "0",
+        "--total-timesteps",
+        "200000",
+        "--output",
+        "results/main/CartPole-v1/seed_0.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.002532958984375,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "CartPole-v1",
+        "--seed",
+        "1",
+        "--total-timesteps",
+        "200000",
+        "--output",
+        "results/main/CartPole-v1/seed_1.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.003879070281982422,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "CartPole-v1",
+        "--seed",
+        "2",
+        "--total-timesteps",
+        "200000",
+        "--output",
+        "results/main/CartPole-v1/seed_2.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.000743865966796875,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "CartPole-v1",
+        "--seed",
+        "3",
+        "--total-timesteps",
+        "200000",
+        "--output",
+        "results/main/CartPole-v1/seed_3.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.0008478164672851562,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "CartPole-v1",
+        "--seed",
+        "4",
+        "--total-timesteps",
+        "200000",
+        "--output",
+        "results/main/CartPole-v1/seed_4.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.0029141902923583984,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "CartPole-v1",
+        "--seed",
+        "5",
+        "--total-timesteps",
+        "200000",
+        "--output",
+        "results/main/CartPole-v1/seed_5.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.004762172698974609,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "CartPole-v1",
+        "--seed",
+        "6",
+        "--total-timesteps",
+        "200000",
+        "--output",
+        "results/main/CartPole-v1/seed_6.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.0015459060668945312,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "CartPole-v1",
+        "--seed",
+        "7",
+        "--total-timesteps",
+        "200000",
+        "--output",
+        "results/main/CartPole-v1/seed_7.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.0012111663818359375,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "CartPole-v1",
+        "--seed",
+        "8",
+        "--total-timesteps",
+        "200000",
+        "--output",
+        "results/main/CartPole-v1/seed_8.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.0012869834899902344,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "CartPole-v1",
+        "--seed",
+        "9",
+        "--total-timesteps",
+        "200000",
+        "--output",
+        "results/main/CartPole-v1/seed_9.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.003702878952026367,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "CartPole-v1",
+        "--seed",
+        "10",
+        "--total-timesteps",
+        "200000",
+        "--output",
+        "results/main/CartPole-v1/seed_10.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.004563808441162109,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "CartPole-v1",
+        "--seed",
+        "11",
+        "--total-timesteps",
+        "200000",
+        "--output",
+        "results/main/CartPole-v1/seed_11.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.0008130073547363281,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "CartPole-v1",
+        "--seed",
+        "12",
+        "--total-timesteps",
+        "200000",
+        "--output",
+        "results/main/CartPole-v1/seed_12.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.0009558200836181641,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "CartPole-v1",
+        "--seed",
+        "13",
+        "--total-timesteps",
+        "200000",
+        "--output",
+        "results/main/CartPole-v1/seed_13.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.0007569789886474609,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "CartPole-v1",
+        "--seed",
+        "14",
+        "--total-timesteps",
+        "200000",
+        "--output",
+        "results/main/CartPole-v1/seed_14.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.0008111000061035156,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "CartPole-v1",
+        "--seed",
+        "15",
+        "--total-timesteps",
+        "200000",
+        "--output",
+        "results/main/CartPole-v1/seed_15.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.004004955291748047,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "CartPole-v1",
+        "--seed",
+        "16",
+        "--total-timesteps",
+        "200000",
+        "--output",
+        "results/main/CartPole-v1/seed_16.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.0007867813110351562,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "CartPole-v1",
+        "--seed",
+        "17",
+        "--total-timesteps",
+        "200000",
+        "--output",
+        "results/main/CartPole-v1/seed_17.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.0016341209411621094,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "CartPole-v1",
+        "--seed",
+        "18",
+        "--total-timesteps",
+        "200000",
+        "--output",
+        "results/main/CartPole-v1/seed_18.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.0018031597137451172,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "CartPole-v1",
+        "--seed",
+        "19",
+        "--total-timesteps",
+        "200000",
+        "--output",
+        "results/main/CartPole-v1/seed_19.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.0008227825164794922,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "Acrobot-v1",
+        "--seed",
+        "0",
+        "--total-timesteps",
+        "300000",
+        "--output",
+        "results/main/Acrobot-v1/seed_0.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.0007560253143310547,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "Acrobot-v1",
+        "--seed",
+        "1",
+        "--total-timesteps",
+        "300000",
+        "--output",
+        "results/main/Acrobot-v1/seed_1.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.0007991790771484375,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "Acrobot-v1",
+        "--seed",
+        "2",
+        "--total-timesteps",
+        "300000",
+        "--output",
+        "results/main/Acrobot-v1/seed_2.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.0007669925689697266,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "Acrobot-v1",
+        "--seed",
+        "3",
+        "--total-timesteps",
+        "300000",
+        "--output",
+        "results/main/Acrobot-v1/seed_3.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.0007488727569580078,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "Acrobot-v1",
+        "--seed",
+        "4",
+        "--total-timesteps",
+        "300000",
+        "--output",
+        "results/main/Acrobot-v1/seed_4.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.008434772491455078,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "Acrobot-v1",
+        "--seed",
+        "5",
+        "--total-timesteps",
+        "300000",
+        "--output",
+        "results/main/Acrobot-v1/seed_5.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.0007433891296386719,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "Acrobot-v1",
+        "--seed",
+        "6",
+        "--total-timesteps",
+        "300000",
+        "--output",
+        "results/main/Acrobot-v1/seed_6.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.0007519721984863281,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "Acrobot-v1",
+        "--seed",
+        "7",
+        "--total-timesteps",
+        "300000",
+        "--output",
+        "results/main/Acrobot-v1/seed_7.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.0008258819580078125,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "Acrobot-v1",
+        "--seed",
+        "8",
+        "--total-timesteps",
+        "300000",
+        "--output",
+        "results/main/Acrobot-v1/seed_8.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.0007328987121582031,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "Acrobot-v1",
+        "--seed",
+        "9",
+        "--total-timesteps",
+        "300000",
+        "--output",
+        "results/main/Acrobot-v1/seed_9.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.0007531642913818359,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "Acrobot-v1",
+        "--seed",
+        "10",
+        "--total-timesteps",
+        "300000",
+        "--output",
+        "results/main/Acrobot-v1/seed_10.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.0020301342010498047,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "Acrobot-v1",
+        "--seed",
+        "11",
+        "--total-timesteps",
+        "300000",
+        "--output",
+        "results/main/Acrobot-v1/seed_11.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.0007312297821044922,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "Acrobot-v1",
+        "--seed",
+        "12",
+        "--total-timesteps",
+        "300000",
+        "--output",
+        "results/main/Acrobot-v1/seed_12.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.006432056427001953,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "Acrobot-v1",
+        "--seed",
+        "13",
+        "--total-timesteps",
+        "300000",
+        "--output",
+        "results/main/Acrobot-v1/seed_13.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.0072939395904541016,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "Acrobot-v1",
+        "--seed",
+        "14",
+        "--total-timesteps",
+        "300000",
+        "--output",
+        "results/main/Acrobot-v1/seed_14.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.00781702995300293,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "Acrobot-v1",
+        "--seed",
+        "15",
+        "--total-timesteps",
+        "300000",
+        "--output",
+        "results/main/Acrobot-v1/seed_15.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.0007631778717041016,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "Acrobot-v1",
+        "--seed",
+        "16",
+        "--total-timesteps",
+        "300000",
+        "--output",
+        "results/main/Acrobot-v1/seed_16.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.0007443428039550781,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "Acrobot-v1",
+        "--seed",
+        "17",
+        "--total-timesteps",
+        "300000",
+        "--output",
+        "results/main/Acrobot-v1/seed_17.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.0007297992706298828,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "Acrobot-v1",
+        "--seed",
+        "18",
+        "--total-timesteps",
+        "300000",
+        "--output",
+        "results/main/Acrobot-v1/seed_18.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.0007090568542480469,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "Acrobot-v1",
+        "--seed",
+        "19",
+        "--total-timesteps",
+        "300000",
+        "--output",
+        "results/main/Acrobot-v1/seed_19.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.002785921096801758,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "Hopper-v5",
+        "--seed",
+        "0",
+        "--total-timesteps",
+        "300000",
+        "--output",
+        "results/main/Hopper-v5/seed_0.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.0009620189666748047,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "Hopper-v5",
+        "--seed",
+        "1",
+        "--total-timesteps",
+        "300000",
+        "--output",
+        "results/main/Hopper-v5/seed_1.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.0008170604705810547,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "Hopper-v5",
+        "--seed",
+        "2",
+        "--total-timesteps",
+        "300000",
+        "--output",
+        "results/main/Hopper-v5/seed_2.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.0008170604705810547,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "Hopper-v5",
+        "--seed",
+        "3",
+        "--total-timesteps",
+        "300000",
+        "--output",
+        "results/main/Hopper-v5/seed_3.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.0008440017700195312,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "Hopper-v5",
+        "--seed",
+        "4",
+        "--total-timesteps",
+        "300000",
+        "--output",
+        "results/main/Hopper-v5/seed_4.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.0031747817993164062,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "Hopper-v5",
+        "--seed",
+        "5",
+        "--total-timesteps",
+        "300000",
+        "--output",
+        "results/main/Hopper-v5/seed_5.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.0027000904083251953,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "Hopper-v5",
+        "--seed",
+        "6",
+        "--total-timesteps",
+        "300000",
+        "--output",
+        "results/main/Hopper-v5/seed_6.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.002312898635864258,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "Hopper-v5",
+        "--seed",
+        "7",
+        "--total-timesteps",
+        "300000",
+        "--output",
+        "results/main/Hopper-v5/seed_7.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.0011448860168457031,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "Hopper-v5",
+        "--seed",
+        "8",
+        "--total-timesteps",
+        "300000",
+        "--output",
+        "results/main/Hopper-v5/seed_8.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.0008311271667480469,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "Hopper-v5",
+        "--seed",
+        "9",
+        "--total-timesteps",
+        "300000",
+        "--output",
+        "results/main/Hopper-v5/seed_9.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.000804901123046875,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "Hopper-v5",
+        "--seed",
+        "10",
+        "--total-timesteps",
+        "300000",
+        "--output",
+        "results/main/Hopper-v5/seed_10.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.002357006072998047,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "Hopper-v5",
+        "--seed",
+        "11",
+        "--total-timesteps",
+        "300000",
+        "--output",
+        "results/main/Hopper-v5/seed_11.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.0011501312255859375,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "Hopper-v5",
+        "--seed",
+        "12",
+        "--total-timesteps",
+        "300000",
+        "--output",
+        "results/main/Hopper-v5/seed_12.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.0009810924530029297,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "Hopper-v5",
+        "--seed",
+        "13",
+        "--total-timesteps",
+        "300000",
+        "--output",
+        "results/main/Hopper-v5/seed_13.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.004158973693847656,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "Hopper-v5",
+        "--seed",
+        "14",
+        "--total-timesteps",
+        "300000",
+        "--output",
+        "results/main/Hopper-v5/seed_14.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.0042040348052978516,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "Hopper-v5",
+        "--seed",
+        "15",
+        "--total-timesteps",
+        "300000",
+        "--output",
+        "results/main/Hopper-v5/seed_15.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.0052111148834228516,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "Hopper-v5",
+        "--seed",
+        "16",
+        "--total-timesteps",
+        "300000",
+        "--output",
+        "results/main/Hopper-v5/seed_16.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.0043179988861083984,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "Hopper-v5",
+        "--seed",
+        "17",
+        "--total-timesteps",
+        "300000",
+        "--output",
+        "results/main/Hopper-v5/seed_17.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.0023179054260253906,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "Hopper-v5",
+        "--seed",
+        "18",
+        "--total-timesteps",
+        "300000",
+        "--output",
+        "results/main/Hopper-v5/seed_18.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.0027091503143310547,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "Hopper-v5",
+        "--seed",
+        "19",
+        "--total-timesteps",
+        "300000",
+        "--output",
+        "results/main/Hopper-v5/seed_19.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.002318859100341797,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "HalfCheetah-v5",
+        "--seed",
+        "0",
+        "--total-timesteps",
+        "300000",
+        "--output",
+        "results/main/HalfCheetah-v5/seed_0.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.004563093185424805,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "HalfCheetah-v5",
+        "--seed",
+        "1",
+        "--total-timesteps",
+        "300000",
+        "--output",
+        "results/main/HalfCheetah-v5/seed_1.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.0026412010192871094,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "HalfCheetah-v5",
+        "--seed",
+        "2",
+        "--total-timesteps",
+        "300000",
+        "--output",
+        "results/main/HalfCheetah-v5/seed_2.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.001708984375,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "HalfCheetah-v5",
+        "--seed",
+        "3",
+        "--total-timesteps",
+        "300000",
+        "--output",
+        "results/main/HalfCheetah-v5/seed_3.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.00337982177734375,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "HalfCheetah-v5",
+        "--seed",
+        "4",
+        "--total-timesteps",
+        "300000",
+        "--output",
+        "results/main/HalfCheetah-v5/seed_4.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.006762981414794922,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "HalfCheetah-v5",
+        "--seed",
+        "5",
+        "--total-timesteps",
+        "300000",
+        "--output",
+        "results/main/HalfCheetah-v5/seed_5.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.0014719963073730469,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "HalfCheetah-v5",
+        "--seed",
+        "6",
+        "--total-timesteps",
+        "300000",
+        "--output",
+        "results/main/HalfCheetah-v5/seed_6.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.0030410289764404297,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "HalfCheetah-v5",
+        "--seed",
+        "7",
+        "--total-timesteps",
+        "300000",
+        "--output",
+        "results/main/HalfCheetah-v5/seed_7.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.0022110939025878906,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "HalfCheetah-v5",
+        "--seed",
+        "8",
+        "--total-timesteps",
+        "300000",
+        "--output",
+        "results/main/HalfCheetah-v5/seed_8.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.0019500255584716797,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "HalfCheetah-v5",
+        "--seed",
+        "9",
+        "--total-timesteps",
+        "300000",
+        "--output",
+        "results/main/HalfCheetah-v5/seed_9.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.0017328262329101562,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "HalfCheetah-v5",
+        "--seed",
+        "10",
+        "--total-timesteps",
+        "300000",
+        "--output",
+        "results/main/HalfCheetah-v5/seed_10.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.0026459693908691406,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "HalfCheetah-v5",
+        "--seed",
+        "11",
+        "--total-timesteps",
+        "300000",
+        "--output",
+        "results/main/HalfCheetah-v5/seed_11.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.0017788410186767578,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "HalfCheetah-v5",
+        "--seed",
+        "12",
+        "--total-timesteps",
+        "300000",
+        "--output",
+        "results/main/HalfCheetah-v5/seed_12.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.0011749267578125,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "HalfCheetah-v5",
+        "--seed",
+        "13",
+        "--total-timesteps",
+        "300000",
+        "--output",
+        "results/main/HalfCheetah-v5/seed_13.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.003548145294189453,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "HalfCheetah-v5",
+        "--seed",
+        "14",
+        "--total-timesteps",
+        "300000",
+        "--output",
+        "results/main/HalfCheetah-v5/seed_14.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.008033037185668945,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "HalfCheetah-v5",
+        "--seed",
+        "15",
+        "--total-timesteps",
+        "300000",
+        "--output",
+        "results/main/HalfCheetah-v5/seed_15.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.0015828609466552734,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "HalfCheetah-v5",
+        "--seed",
+        "16",
+        "--total-timesteps",
+        "300000",
+        "--output",
+        "results/main/HalfCheetah-v5/seed_16.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.0033321380615234375,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "HalfCheetah-v5",
+        "--seed",
+        "17",
+        "--total-timesteps",
+        "300000",
+        "--output",
+        "results/main/HalfCheetah-v5/seed_17.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.003964900970458984,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "HalfCheetah-v5",
+        "--seed",
+        "18",
+        "--total-timesteps",
+        "300000",
+        "--output",
+        "results/main/HalfCheetah-v5/seed_18.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.0020051002502441406,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "HalfCheetah-v5",
+        "--seed",
+        "19",
+        "--total-timesteps",
+        "300000",
+        "--output",
+        "results/main/HalfCheetah-v5/seed_19.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.0011141300201416016,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "Walker2d-v5",
+        "--seed",
+        "0",
+        "--total-timesteps",
+        "300000",
+        "--output",
+        "results/main/Walker2d-v5/seed_0.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.0016541481018066406,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "Walker2d-v5",
+        "--seed",
+        "1",
+        "--total-timesteps",
+        "300000",
+        "--output",
+        "results/main/Walker2d-v5/seed_1.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.0013959407806396484,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "Walker2d-v5",
+        "--seed",
+        "2",
+        "--total-timesteps",
+        "300000",
+        "--output",
+        "results/main/Walker2d-v5/seed_2.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.001264810562133789,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "Walker2d-v5",
+        "--seed",
+        "3",
+        "--total-timesteps",
+        "300000",
+        "--output",
+        "results/main/Walker2d-v5/seed_3.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.0014481544494628906,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "Walker2d-v5",
+        "--seed",
+        "4",
+        "--total-timesteps",
+        "300000",
+        "--output",
+        "results/main/Walker2d-v5/seed_4.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.004128932952880859,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "Walker2d-v5",
+        "--seed",
+        "5",
+        "--total-timesteps",
+        "300000",
+        "--output",
+        "results/main/Walker2d-v5/seed_5.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.00150299072265625,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "Walker2d-v5",
+        "--seed",
+        "6",
+        "--total-timesteps",
+        "300000",
+        "--output",
+        "results/main/Walker2d-v5/seed_6.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.0029778480529785156,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "Walker2d-v5",
+        "--seed",
+        "7",
+        "--total-timesteps",
+        "300000",
+        "--output",
+        "results/main/Walker2d-v5/seed_7.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.0016639232635498047,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "Walker2d-v5",
+        "--seed",
+        "8",
+        "--total-timesteps",
+        "300000",
+        "--output",
+        "results/main/Walker2d-v5/seed_8.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.0018570423126220703,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "Walker2d-v5",
+        "--seed",
+        "9",
+        "--total-timesteps",
+        "300000",
+        "--output",
+        "results/main/Walker2d-v5/seed_9.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.0017747879028320312,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "Walker2d-v5",
+        "--seed",
+        "10",
+        "--total-timesteps",
+        "300000",
+        "--output",
+        "results/main/Walker2d-v5/seed_10.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.003641843795776367,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "Walker2d-v5",
+        "--seed",
+        "11",
+        "--total-timesteps",
+        "300000",
+        "--output",
+        "results/main/Walker2d-v5/seed_11.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.0023322105407714844,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "Walker2d-v5",
+        "--seed",
+        "12",
+        "--total-timesteps",
+        "300000",
+        "--output",
+        "results/main/Walker2d-v5/seed_12.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.0026476383209228516,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "Walker2d-v5",
+        "--seed",
+        "13",
+        "--total-timesteps",
+        "300000",
+        "--output",
+        "results/main/Walker2d-v5/seed_13.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.0009491443634033203,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "Walker2d-v5",
+        "--seed",
+        "14",
+        "--total-timesteps",
+        "300000",
+        "--output",
+        "results/main/Walker2d-v5/seed_14.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.001026153564453125,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "Walker2d-v5",
+        "--seed",
+        "15",
+        "--total-timesteps",
+        "300000",
+        "--output",
+        "results/main/Walker2d-v5/seed_15.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.0009229183197021484,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "Walker2d-v5",
+        "--seed",
+        "16",
+        "--total-timesteps",
+        "300000",
+        "--output",
+        "results/main/Walker2d-v5/seed_16.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.002214193344116211,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "Walker2d-v5",
+        "--seed",
+        "17",
+        "--total-timesteps",
+        "300000",
+        "--output",
+        "results/main/Walker2d-v5/seed_17.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.0014920234680175781,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "Walker2d-v5",
+        "--seed",
+        "18",
+        "--total-timesteps",
+        "300000",
+        "--output",
+        "results/main/Walker2d-v5/seed_18.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.001264333724975586,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "Walker2d-v5",
+        "--seed",
+        "19",
+        "--total-timesteps",
+        "300000",
+        "--output",
+        "results/main/Walker2d-v5/seed_19.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.0020470619201660156,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "Ant-v5",
+        "--seed",
+        "0",
+        "--total-timesteps",
+        "300000",
+        "--output",
+        "results/main/Ant-v5/seed_0.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.0008037090301513672,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "Ant-v5",
+        "--seed",
+        "1",
+        "--total-timesteps",
+        "300000",
+        "--output",
+        "results/main/Ant-v5/seed_1.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.0013418197631835938,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "Ant-v5",
+        "--seed",
+        "2",
+        "--total-timesteps",
+        "300000",
+        "--output",
+        "results/main/Ant-v5/seed_2.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.0016219615936279297,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "Ant-v5",
+        "--seed",
+        "3",
+        "--total-timesteps",
+        "300000",
+        "--output",
+        "results/main/Ant-v5/seed_3.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.0012030601501464844,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "Ant-v5",
+        "--seed",
+        "4",
+        "--total-timesteps",
+        "300000",
+        "--output",
+        "results/main/Ant-v5/seed_4.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.0009479522705078125,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "Ant-v5",
+        "--seed",
+        "5",
+        "--total-timesteps",
+        "300000",
+        "--output",
+        "results/main/Ant-v5/seed_5.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.0010139942169189453,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "Ant-v5",
+        "--seed",
+        "6",
+        "--total-timesteps",
+        "300000",
+        "--output",
+        "results/main/Ant-v5/seed_6.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.000827789306640625,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "Ant-v5",
+        "--seed",
+        "7",
+        "--total-timesteps",
+        "300000",
+        "--output",
+        "results/main/Ant-v5/seed_7.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.0009069442749023438,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "Ant-v5",
+        "--seed",
+        "8",
+        "--total-timesteps",
+        "300000",
+        "--output",
+        "results/main/Ant-v5/seed_8.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.0008671283721923828,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "Ant-v5",
+        "--seed",
+        "9",
+        "--total-timesteps",
+        "300000",
+        "--output",
+        "results/main/Ant-v5/seed_9.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.0008749961853027344,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "Ant-v5",
+        "--seed",
+        "10",
+        "--total-timesteps",
+        "300000",
+        "--output",
+        "results/main/Ant-v5/seed_10.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.0008091926574707031,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "Ant-v5",
+        "--seed",
+        "11",
+        "--total-timesteps",
+        "300000",
+        "--output",
+        "results/main/Ant-v5/seed_11.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.0008041858673095703,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "Ant-v5",
+        "--seed",
+        "12",
+        "--total-timesteps",
+        "300000",
+        "--output",
+        "results/main/Ant-v5/seed_12.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.004592180252075195,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "Ant-v5",
+        "--seed",
+        "13",
+        "--total-timesteps",
+        "300000",
+        "--output",
+        "results/main/Ant-v5/seed_13.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.0011157989501953125,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "Ant-v5",
+        "--seed",
+        "14",
+        "--total-timesteps",
+        "300000",
+        "--output",
+        "results/main/Ant-v5/seed_14.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.0028710365295410156,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "Ant-v5",
+        "--seed",
+        "15",
+        "--total-timesteps",
+        "300000",
+        "--output",
+        "results/main/Ant-v5/seed_15.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.0008151531219482422,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "Ant-v5",
+        "--seed",
+        "16",
+        "--total-timesteps",
+        "300000",
+        "--output",
+        "results/main/Ant-v5/seed_16.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.0007810592651367188,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "Ant-v5",
+        "--seed",
+        "17",
+        "--total-timesteps",
+        "300000",
+        "--output",
+        "results/main/Ant-v5/seed_17.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.0007960796356201172,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "Ant-v5",
+        "--seed",
+        "18",
+        "--total-timesteps",
+        "300000",
+        "--output",
+        "results/main/Ant-v5/seed_18.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.003242015838623047,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "Ant-v5",
+        "--seed",
+        "19",
+        "--total-timesteps",
+        "300000",
+        "--output",
+        "results/main/Ant-v5/seed_19.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.0007698535919189453,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "Humanoid-v5",
+        "--seed",
+        "0",
+        "--total-timesteps",
+        "500000",
+        "--output",
+        "results/main/Humanoid-v5/seed_0.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.0007760524749755859,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "Humanoid-v5",
+        "--seed",
+        "1",
+        "--total-timesteps",
+        "500000",
+        "--output",
+        "results/main/Humanoid-v5/seed_1.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.0007872581481933594,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "Humanoid-v5",
+        "--seed",
+        "2",
+        "--total-timesteps",
+        "500000",
+        "--output",
+        "results/main/Humanoid-v5/seed_2.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.0007729530334472656,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "Humanoid-v5",
+        "--seed",
+        "3",
+        "--total-timesteps",
+        "500000",
+        "--output",
+        "results/main/Humanoid-v5/seed_3.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.0007398128509521484,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "Humanoid-v5",
+        "--seed",
+        "4",
+        "--total-timesteps",
+        "500000",
+        "--output",
+        "results/main/Humanoid-v5/seed_4.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.0007517337799072266,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "Humanoid-v5",
+        "--seed",
+        "5",
+        "--total-timesteps",
+        "500000",
+        "--output",
+        "results/main/Humanoid-v5/seed_5.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.0007579326629638672,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "Humanoid-v5",
+        "--seed",
+        "6",
+        "--total-timesteps",
+        "500000",
+        "--output",
+        "results/main/Humanoid-v5/seed_6.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.0008170604705810547,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "Humanoid-v5",
+        "--seed",
+        "7",
+        "--total-timesteps",
+        "500000",
+        "--output",
+        "results/main/Humanoid-v5/seed_7.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.0007920265197753906,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "Humanoid-v5",
+        "--seed",
+        "8",
+        "--total-timesteps",
+        "500000",
+        "--output",
+        "results/main/Humanoid-v5/seed_8.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.0008380413055419922,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "Humanoid-v5",
+        "--seed",
+        "9",
+        "--total-timesteps",
+        "500000",
+        "--output",
+        "results/main/Humanoid-v5/seed_9.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.0007650852203369141,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "Humanoid-v5",
+        "--seed",
+        "10",
+        "--total-timesteps",
+        "500000",
+        "--output",
+        "results/main/Humanoid-v5/seed_10.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.0007510185241699219,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "Humanoid-v5",
+        "--seed",
+        "11",
+        "--total-timesteps",
+        "500000",
+        "--output",
+        "results/main/Humanoid-v5/seed_11.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.002373933792114258,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "Humanoid-v5",
+        "--seed",
+        "12",
+        "--total-timesteps",
+        "500000",
+        "--output",
+        "results/main/Humanoid-v5/seed_12.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.00074005126953125,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "Humanoid-v5",
+        "--seed",
+        "13",
+        "--total-timesteps",
+        "500000",
+        "--output",
+        "results/main/Humanoid-v5/seed_13.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.0007448196411132812,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "Humanoid-v5",
+        "--seed",
+        "14",
+        "--total-timesteps",
+        "500000",
+        "--output",
+        "results/main/Humanoid-v5/seed_14.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.0013000965118408203,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "Humanoid-v5",
+        "--seed",
+        "15",
+        "--total-timesteps",
+        "500000",
+        "--output",
+        "results/main/Humanoid-v5/seed_15.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.0007469654083251953,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "Humanoid-v5",
+        "--seed",
+        "16",
+        "--total-timesteps",
+        "500000",
+        "--output",
+        "results/main/Humanoid-v5/seed_16.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.0023908615112304688,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "Humanoid-v5",
+        "--seed",
+        "17",
+        "--total-timesteps",
+        "500000",
+        "--output",
+        "results/main/Humanoid-v5/seed_17.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.0013141632080078125,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "Humanoid-v5",
+        "--seed",
+        "18",
+        "--total-timesteps",
+        "500000",
+        "--output",
+        "results/main/Humanoid-v5/seed_18.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.0009129047393798828,
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "Humanoid-v5",
+        "--seed",
+        "19",
+        "--total-timesteps",
+        "500000",
+        "--output",
+        "results/main/Humanoid-v5/seed_19.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "duration": 0.0008881092071533203,
+      "rc": 0
+    }
+  ],
+  "started_at": 1777570723.090858
+}

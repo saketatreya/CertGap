@@ -1,0 +1,9 @@
+{
+  "env_id": "CartPole-v1",
+  "final_J": 365.4,
+  "median_cert_gap": -412.0596090853214,
+  "n_updates": 98,
+  "resolved_env_id": "CartPole-v1",
+  "runtime_seconds": 283.11210799217224,
+  "seed": 18
+}
