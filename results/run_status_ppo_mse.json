@@ -1,6 +1,4 @@
 {
-  "n_done": 40,
-  "n_failed": 0,
   "runs": [
     {
       "args": [
@@ -20,7 +18,6 @@
         "--skip-if-exists",
         "--quiet"
       ],
-      "duration": 0.0038170814514160156,
       "rc": 0
     },
     {
@@ -41,7 +38,6 @@
         "--skip-if-exists",
         "--quiet"
       ],
-      "duration": 0.002753019332885742,
       "rc": 0
     },
     {
@@ -62,7 +58,6 @@
         "--skip-if-exists",
         "--quiet"
       ],
-      "duration": 0.0008409023284912109,
       "rc": 0
     },
     {
@@ -83,7 +78,6 @@
         "--skip-if-exists",
         "--quiet"
       ],
-      "duration": 0.0007531642913818359,
       "rc": 0
     },
     {
@@ -104,7 +98,6 @@
         "--skip-if-exists",
         "--quiet"
       ],
-      "duration": 0.0007410049438476562,
       "rc": 0
     },
     {
@@ -125,7 +118,6 @@
         "--skip-if-exists",
         "--quiet"
       ],
-      "duration": 0.0007348060607910156,
       "rc": 0
     },
     {
@@ -146,7 +138,6 @@
         "--skip-if-exists",
         "--quiet"
       ],
-      "duration": 0.0008068084716796875,
       "rc": 0
     },
     {
@@ -167,7 +158,6 @@
         "--skip-if-exists",
         "--quiet"
       ],
-      "duration": 0.0007328987121582031,
       "rc": 0
     },
     {
@@ -188,7 +178,6 @@
         "--skip-if-exists",
         "--quiet"
       ],
-      "duration": 0.000720977783203125,
       "rc": 0
     },
     {
@@ -209,7 +198,6 @@
         "--skip-if-exists",
         "--quiet"
       ],
-      "duration": 0.0007688999176025391,
       "rc": 0
     },
     {
@@ -230,7 +218,6 @@
         "--skip-if-exists",
         "--quiet"
       ],
-      "duration": 0.0010890960693359375,
       "rc": 0
     },
     {
@@ -251,7 +238,6 @@
         "--skip-if-exists",
         "--quiet"
       ],
-      "duration": 0.0007328987121582031,
       "rc": 0
     },
     {
@@ -272,7 +258,6 @@
         "--skip-if-exists",
         "--quiet"
       ],
-      "duration": 0.0007228851318359375,
       "rc": 0
     },
     {
@@ -293,7 +278,6 @@
         "--skip-if-exists",
         "--quiet"
       ],
-      "duration": 0.0007150173187255859,
       "rc": 0
     },
     {
@@ -314,7 +298,6 @@
         "--skip-if-exists",
         "--quiet"
       ],
-      "duration": 0.005489826202392578,
       "rc": 0
     },
     {
@@ -335,7 +318,6 @@
         "--skip-if-exists",
         "--quiet"
       ],
-      "duration": 0.0007128715515136719,
       "rc": 0
     },
     {
@@ -356,7 +338,6 @@
         "--skip-if-exists",
         "--quiet"
       ],
-      "duration": 0.0007181167602539062,
       "rc": 0
     },
     {
@@ -377,7 +358,6 @@
         "--skip-if-exists",
         "--quiet"
       ],
-      "duration": 0.0007212162017822266,
       "rc": 0
     },
     {
@@ -398,7 +378,6 @@
         "--skip-if-exists",
         "--quiet"
       ],
-      "duration": 0.0008680820465087891,
       "rc": 0
     },
     {
@@ -419,7 +398,6 @@
         "--skip-if-exists",
         "--quiet"
       ],
-      "duration": 0.0007190704345703125,
       "rc": 0
     },
     {
@@ -440,7 +418,6 @@
         "--skip-if-exists",
         "--quiet"
       ],
-      "duration": 0.0011990070343017578,
       "rc": 0
     },
     {
@@ -461,7 +438,6 @@
         "--skip-if-exists",
         "--quiet"
       ],
-      "duration": 0.0022211074829101562,
       "rc": 0
     },
     {
@@ -482,7 +458,6 @@
         "--skip-if-exists",
         "--quiet"
       ],
-      "duration": 0.002620220184326172,
       "rc": 0
     },
     {
@@ -503,7 +478,6 @@
         "--skip-if-exists",
         "--quiet"
       ],
-      "duration": 0.002524852752685547,
       "rc": 0
     },
     {
@@ -524,7 +498,6 @@
         "--skip-if-exists",
         "--quiet"
       ],
-      "duration": 0.004091739654541016,
       "rc": 0
     },
     {
@@ -545,7 +518,6 @@
         "--skip-if-exists",
         "--quiet"
       ],
-      "duration": 0.001811981201171875,
       "rc": 0
     },
     {
@@ -566,7 +538,6 @@
         "--skip-if-exists",
         "--quiet"
       ],
-      "duration": 0.0008246898651123047,
       "rc": 0
     },
     {
@@ -587,7 +558,6 @@
         "--skip-if-exists",
         "--quiet"
       ],
-      "duration": 0.00086212158203125,
       "rc": 0
     },
     {
@@ -608,7 +578,6 @@
         "--skip-if-exists",
         "--quiet"
       ],
-      "duration": 0.0008571147918701172,
       "rc": 0
     },
     {
@@ -629,7 +598,6 @@
         "--skip-if-exists",
         "--quiet"
       ],
-      "duration": 0.0028569698333740234,
       "rc": 0
     },
     {
@@ -650,7 +618,6 @@
         "--skip-if-exists",
         "--quiet"
       ],
-      "duration": 0.0007498264312744141,
       "rc": 0
     },
     {
@@ -671,7 +638,6 @@
         "--skip-if-exists",
         "--quiet"
       ],
-      "duration": 0.0008718967437744141,
       "rc": 0
     },
     {
@@ -692,7 +658,6 @@
         "--skip-if-exists",
         "--quiet"
       ],
-      "duration": 0.0025720596313476562,
       "rc": 0
     },
     {
@@ -713,7 +678,6 @@
         "--skip-if-exists",
         "--quiet"
       ],
-      "duration": 0.0008440017700195312,
       "rc": 0
     },
     {
@@ -734,7 +698,6 @@
         "--skip-if-exists",
         "--quiet"
       ],
-      "duration": 0.0007560253143310547,
       "rc": 0
     },
     {
@@ -755,7 +718,6 @@
         "--skip-if-exists",
         "--quiet"
       ],
-      "duration": 0.0010709762573242188,
       "rc": 0
     },
     {
@@ -776,7 +738,6 @@
         "--skip-if-exists",
         "--quiet"
       ],
-      "duration": 0.00154876708984375,
       "rc": 0
     },
     {
@@ -797,7 +758,6 @@
         "--skip-if-exists",
         "--quiet"
       ],
-      "duration": 0.0017790794372558594,
       "rc": 0
     },
     {
@@ -818,7 +778,6 @@
         "--skip-if-exists",
         "--quiet"
       ],
-      "duration": 0.0007791519165039062,
       "rc": 0
     },
     {
@@ -839,9 +798,7 @@
         "--skip-if-exists",
         "--quiet"
       ],
-      "duration": 0.0013811588287353516,
       "rc": 0
     }
-  ],
-  "started_at": 1777570726.462442
+  ]
 }

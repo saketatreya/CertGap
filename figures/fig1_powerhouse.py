@@ -5,6 +5,9 @@ Contrast absolute residuals with start-state bias across algorithms.
 import pickle
 from pathlib import Path
 import numpy as np
+import matplotlib as mpl
+mpl.rcParams["pdf.fonttype"] = 42
+mpl.rcParams["ps.fonttype"] = 42
 import matplotlib.pyplot as plt
 from certgap.analysis.audit import collect_audit_rows
 def out_path(name: str) -> Path:

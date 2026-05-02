@@ -1,6 +1,4 @@
 {
-  "n_done": 6,
-  "n_failed": 0,
   "runs": [
     {
       "args": [
@@ -18,7 +16,6 @@
         "--skip-if-exists",
         "--quiet"
       ],
-      "duration": 0.003010988235473633,
       "rc": 0
     },
     {
@@ -37,7 +34,6 @@
         "--skip-if-exists",
         "--quiet"
       ],
-      "duration": 0.0015227794647216797,
       "rc": 0
     },
     {
@@ -56,7 +52,6 @@
         "--skip-if-exists",
         "--quiet"
       ],
-      "duration": 0.0032308101654052734,
       "rc": 0
     },
     {
@@ -75,7 +70,6 @@
         "--skip-if-exists",
         "--quiet"
       ],
-      "duration": 0.0008032321929931641,
       "rc": 0
     },
     {
@@ -94,7 +88,6 @@
         "--skip-if-exists",
         "--quiet"
       ],
-      "duration": 0.0007560253143310547,
       "rc": 0
     },
     {
@@ -113,9 +106,7 @@
         "--skip-if-exists",
         "--quiet"
       ],
-      "duration": 0.00074005126953125,
       "rc": 0
     }
-  ],
-  "started_at": 1777570742.256255
+  ]
 }

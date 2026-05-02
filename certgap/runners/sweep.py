@@ -64,9 +64,98 @@ def grid_recompute_baselines():
         runs.append({"args": ["--algo", "ppo", "--env", env, "--seed", "0", "--total-timesteps", str(ts), "--output", f"results/main/{env}/seed_0.pkl", "--quiet"]})
     return runs
 
+
+def _factorial_grid(env: str, total_steps: int, ve_values: list[int], ce_values: list[float],
+                    vlr_values: list[float] | None, out_dir: str, seeds: int = 5):
+    runs = []
+    for ve in ve_values:
+        for ce in ce_values:
+            cell = f"ve{ve}_ce{ce}"
+            for s in range(seeds):
+                runs.append({"args": [
+                    "--algo", "ppo", "--env", env, "--seed", str(s),
+                    "--total-timesteps", str(total_steps),
+                    "--factorial-value-epochs", str(ve),
+                    "--factorial-clip-eps", str(ce),
+                    "--output", f"results/{out_dir}/{cell}/seed_{s}.pkl",
+                    "--skip-if-exists", "--quiet",
+                ]})
+    if vlr_values:
+        for vlr in vlr_values:
+            cell = f"vlr{vlr:.0e}"
+            for s in range(seeds):
+                runs.append({"args": [
+                    "--algo", "ppo", "--env", env, "--seed", str(s),
+                    "--total-timesteps", str(total_steps),
+                    "--factorial-value-lr", str(vlr),
+                    "--output", f"results/{out_dir}/{cell}/seed_{s}.pkl",
+                    "--skip-if-exists", "--quiet",
+                ]})
+    return runs
+
+
+def grid_ppo_factorial_lunarlander(seeds=5):
+    return _factorial_grid(
+        env="LunarLander-v3", total_steps=300000,
+        ve_values=[5, 10, 20, 40], ce_values=[0.1, 0.2, 0.3, 0.4],
+        vlr_values=None, out_dir="factorial_lunarlander", seeds=seeds,
+    )
+
+
+def grid_ppo_factorial_halfcheetah(seeds=5):
+    return _factorial_grid(
+        env="HalfCheetah-v5", total_steps=300000,
+        ve_values=[5, 10, 20], ce_values=[0.1, 0.2],
+        vlr_values=[3e-4, 1e-3, 3e-3], out_dir="factorial_halfcheetah", seeds=seeds,
+    )
+
+
+def grid_ppo_factorial_hopper(seeds=5):
+    return _factorial_grid(
+        env="Hopper-v5", total_steps=300000,
+        ve_values=[5, 10, 20], ce_values=[0.1, 0.2],
+        vlr_values=[3e-4, 1e-3, 3e-3], out_dir="factorial_hopper", seeds=seeds,
+    )
+
+
+def grid_ppo_heldout_humanoid(seeds=20):
+    runs = []
+    for s in range(seeds):
+        runs.append({"args": [
+            "--algo", "ppo", "--env", "Humanoid-v5", "--seed", str(s),
+            "--total-timesteps", "500000",
+            "--log-heldout", "--heldout-batch-size", "500",
+            "--output", f"results/heldout_humanoid/seed_{s}.pkl",
+            "--skip-if-exists", "--quiet",
+        ]})
+    return runs
+
+
+def grid_ppo_eps_u_variants(seeds=6):
+    runs = []
+    for s in range(seeds):
+        runs.append({"args": [
+            "--algo", "ppo", "--env", "Humanoid-v5", "--seed", str(s),
+            "--total-timesteps", "500000",
+            "--log-eps-u-variants",
+            "--output", f"results/eps_u_variants/Humanoid-v5/seed_{s}.pkl",
+            "--skip-if-exists", "--quiet",
+        ]})
+    return runs
+
+
 GRID_BUILDERS = {
-    "ppo_main": grid_ppo_main, "ppo_mse": grid_ppo_mse, "sac_main": grid_sac_main, "trpo_pilot": grid_trpo_pilot,
-    "ppo_intervention_check": grid_ppo_intervention_check, "recompute_baselines": grid_recompute_baselines
+    "ppo_main": grid_ppo_main,
+    "ppo_mse": grid_ppo_mse,
+    "sac_main": grid_sac_main,
+    "trpo_pilot": grid_trpo_pilot,
+    "ppo_intervention_check": grid_ppo_intervention_check,
+    "ppo_factorial_lunarlander": grid_ppo_factorial_lunarlander,
+    "ppo_factorial_halfcheetah": grid_ppo_factorial_halfcheetah,
+    "ppo_factorial_hopper": grid_ppo_factorial_hopper,
+    "ppo_heldout_humanoid": grid_ppo_heldout_humanoid,
+    "ppo_eps_u_variants": grid_ppo_eps_u_variants,
+    "recompute_baselines": grid_recompute_baselines,
 }
 
 def _worker(args):

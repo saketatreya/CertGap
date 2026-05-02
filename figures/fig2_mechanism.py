@@ -5,6 +5,9 @@ The Ak Paradox and the Early Stopping Pareto.
 import pickle
 from pathlib import Path
 import numpy as np
+import matplotlib as mpl
+mpl.rcParams["pdf.fonttype"] = 42
+mpl.rcParams["ps.fonttype"] = 42
 import matplotlib.pyplot as plt
 import pandas as pd
 def out_path(name: str) -> Path:

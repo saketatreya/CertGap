@@ -22,7 +22,7 @@ def main() -> None:
     if not path.exists():
         raise FileNotFoundError(
             "results/tabular/identity_residuals.json not found. "
-            "Run scripts/run_tabular.sh first."
+            "Run `python scripts/run_all.py` first."
         )
     data = json.loads(path.read_text())  # {family_label: [residuals]}
     fig, ax = plt.subplots(figsize=(7, 3.4))

@@ -1,44 +1,74 @@
 # The Certification Gap
 
-Code and data for *The Bellman Residual Is Not a Policy-Improvement Proxy in Actor--Critic Reinforcement Learning* (NeurIPS 2026, under submission).
+Code and data for *The Bellman Residual Is Not a Policy-Improvement Proxy in
+Actor--Critic Reinforcement Learning* (NeurIPS 2026 submission).
 
-This repository demonstrates empirically and theoretically that the canonical Bellman residual ($\epsilon_u$) — the value-function loss used in nearly every PPO/SAC implementation — is uninformative as a per-update predictor of policy harm. We isolate the **start-state critic bias** ($\hat\Delta_k$) as the mechanistically active signal for policy improvement.
+We show, theoretically and empirically, that the canonical Bellman residual
+($\epsilon_u$) — the value-function loss minimized in nearly every PPO/SAC/TRPO
+implementation — is uninformative as a per-update predictor of policy harm. The
+exact identity $J(\pi_{k+1}) - J(\pi_k) = A_k - \hat\Delta_k$ exposes the
+**start-state critic bias** $\hat\Delta_k = J(\pi_k) - \mathbb{E}_\nu V_{k+1}$ as
+the operative covariate-shift quantity.
 
-## Key Findings
-- **Diagnostic Failure**: The absolute Bellman residual is near-chance at predicting policy harm (pooled median AUROC 0.46).
-- **Start-State Bias**: The bias term $\hat\Delta_k = J(\pi_k) - \mathbb{E}_\nu V_{k+1}$ predicts harm at pooled median AUROC 0.68 and dominates $\epsilon_u$ on 235 of 237 seeds ( < 10^{-40}$).
-- **The $ Paradox**: Surrogate advantage $ is often anti-predictive of actual improvement because the policy "chases" the critic's start-state bias.
-- **Actionable Intervention**: A post-update validation gate based on $\hat\Delta_k$ successfully stabilizes training on high-dimensional tasks like Humanoid-v5.
+## Headline numbers
+
+| Diagnostic | Pooled median AUROC | Wins (paired) |
+|---|---|---|
+| $-\epsilon_u$ (Bellman residual) | 0.46 | 2 / 236 |
+| $-\hat\Delta_k$ (start-state bias) | **0.68** | **234 / 236** |
+
+237 seeds across PPO, the PPO-MSE ablation, SAC, and TRPO; 8 environments;
+~86,000 logged actor–critic updates. Paired Wilcoxon $p < 10^{-40}$.
+
+## Repository layout
+
+```
+certgap/      Core PPO / SAC / TRPO implementation with paper-aligned logging
+figures/      Figure scripts (one per paper figure) -> figures/out/
+paper/        paper.tex, references.bib, neurips_2026.sty, checklist.tex
+results/      Cached audit pickles (~86k updates, 237 seeds)
+scripts/      run_all.py master runner + diagnostic utilities
+tests/        Smoke tests
+```
 
 ## Installation
 
 ```bash
-python -m venv .venv
-source .venv/bin/activate
-pip install -e .
-pip install "gymnasium[mujoco]"
+make install
+# equivalently:
+#   python -m venv .venv
+#   .venv/bin/pip install -e .
+#   .venv/bin/pip install "gymnasium[mujoco]"
 ```
 
-## One-Line Reproducibility
+## Single-command reproduction
 
-**1. Regenerate all paper figures and tables from results:**
+| Goal | Command |
+|---|---|
+| Run every experiment from scratch (~13h on 8-core CPU; idempotent) | `make experiments` |
+| Regenerate every figure and table from cached `results/` pickles (~1 min) | `make figures` |
+| Rebuild the paper PDF (`paper/paper.pdf`) | `make paper` |
+| Smoke tests + tabular-identity sanity check | `make verify` |
+
+`make experiments` skips runs whose pickle is already on disk, so it is safe to
+interrupt and resume. Pass `WORKERS=N` to set the parallelism (default 6):
+`make experiments WORKERS=8`.
+
+The full pipeline, end-to-end:
+
 ```bash
+make install
+make experiments
 make figures
+make paper
 ```
-This produces all main and appendix PDFs in `figures/out/`, including the updated audit table.
 
-**2. Run the full experimental suite from scratch:**
-```bash
-.venv/bin/python scripts/run_all.py --workers 4 --skip-if-exists
-```
-This command handles the main grid, hyperparameter factorials, baseline recomputes, and the gated intervention study.
+## Paper
 
-## Repository Structure
-- `certgap/`: Core implementation of PPO, SAC, and TRPO with paper-aligned logging.
-- `results/`: The audit dataset (86k updates, 238 seeds).
-- `figures/`: Scripts for every figure in the manuscript.
-- `scripts/`: Masters runners and diagnostic utilities.
-- `paper.pdf`: The submitted manuscript.
+`paper/paper.tex` uses the official NeurIPS 2026 style (`paper/neurips_2026.sty`)
+with anonymized author block and line numbers, and includes the NeurIPS Paper
+Checklist (`paper/checklist.tex`) after the appendix. Build with `make paper`.
 
 ## License
-MIT. See `LICENSE` for details.
+
+MIT. See `LICENSE`.

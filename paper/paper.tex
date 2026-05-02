@@ -1,0 +1,377 @@
+\documentclass{article}
+
+% NeurIPS 2026 submission (Main Track, double-blind, with line numbers).
+\usepackage{neurips_2026}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{hyperref}
+\usepackage{url}
+\usepackage{booktabs}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{nicefrac}
+\usepackage{microtype}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{cleveref}
+
+\graphicspath{{../figures/out/}{../figures/out/appendix/}}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}{Proposition}
+\newtheorem{lemma}{Lemma}
+\newtheorem{corollary}{Corollary}
+\newtheorem{definition}{Definition}
+
+\title{Start-State Critic Bias, Not the Bellman Residual, Tracks Policy Improvement in Actor--Critic Deep RL}
+
+% Anonymous author block is rendered automatically by the neurips_2026 style
+% file in submission mode. Do not deanonymise here.
+\author{%
+  Anonymous Author(s) \\
+  Affiliation \\
+  Address \\
+  \texttt{email}
+}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Actor--critic deep reinforcement learning (RL) relies on learned value functions to guide policy updates. Practitioners typically monitor the Bellman residual ($\epsilon_u$), or value-function loss, as a proxy for critic quality and update health. We demonstrate, both theoretically and empirically, that across the actor--critic configurations we audit the absolute Bellman residual is uninformative as a per-update predictor of policy improvement. Theoretically, we show that the relevant criterion is a \emph{dimensionless ratio} $\epsilon_u / A_k$, and that any fixed absolute tolerance eventually becomes vacuous as the policy improves. Empirically, we audit over 86{,}000 actor--critic updates across PPO, SAC, and TRPO, spanning eight environments and 237 seeds. We find $\epsilon_u$ is near-chance at predicting policy harm (pooled median AUROC $0.46$). The exact policy-improvement identity $J(\pi_{k+1}) - J(\pi_k) = A_k - \hat\Delta_k$ exposes the \textbf{start-state critic bias} $\hat\Delta_k = J(\pi_k) - \mathbb{E}_\nu V_{k+1}$ as the operative covariate-shift quantity. The bias term predicts harm at pooled median AUROC $0.68$ and dominates $\epsilon_u$ on $234$ of $236$ paired seeds (paired Wilcoxon $p < 10^{-40}$). To rule out return-estimate leakage, we replicate the diagnostic on independent held-out rollouts and recover AUROC $0.61$, confirming the signal reflects critic generalization rather than shared Monte Carlo noise. The dominance is uniform across PPO, SAC, and TRPO, robust to a $\sim 200$-cell hyperparameter factorial, and matches a tabular sanity check where the identity holds to machine precision. We conclude that critic monitoring and critic-objective design in actor--critic deep RL should shift from absolute TD error toward relative, distribution-aware quantities.
+\end{abstract}
+
+\section{Introduction}
+\label{sec:intro}
+
+Actor--critic algorithms in deep reinforcement learning (RL)---including PPO \citep{schulman2017proximal}, SAC \citep{haarnoja2018soft}, and TRPO \citep{schulman2015trust}---update a policy iteratively against a learned value function. The standard analytic guarantee for the success of these updates typically relies on a bound of the form:
+\begin{equation}
+\label{eq:bound}
+J(\pi_{k+1}) - J(\pi_k) \;\geq\; A_k \,-\, c \cdot \epsilon_u,
+\end{equation}
+where $\epsilon_u$ is a norm of the Bellman residual $T^\pi V - V$ and $A_k$ is the advantage signal. In practice, the scalar $\epsilon_u$ is the value-function loss minimized by nearly every deep actor--critic implementation \citep{huang202237,andrychowicz2021what}, and is the primary quantity practitioners monitor to assess whether their critic is ``good enough'' to support policy improvement.
+
+In this paper, we show that this reliance on the absolute Bellman residual is misplaced. We argue that $\epsilon_u$ is the wrong object for monitoring update health, both because it lacks the correct scale and because it targets the wrong distribution.
+
+\paragraph{Theory: fixed absolute tolerances eventually become vacuous.}
+We first give a constructive argument for why a fixed absolute Bellman-residual tolerance cannot certify policy improvement. We show that the relevant theoretical tolerance is the \emph{dimensionless ratio} $\epsilon_u / A_k$. As training progresses and the policy approaches a local optimum, the advantage signal $A_k$ naturally tends toward zero. Consequently, any fixed absolute tolerance $\epsilon^{\text{fixed}}$ eventually becomes too large relative to the available improvement signal, rendering the improvement guarantee (\ref{eq:bound}) vacuous. We formalize this in \Cref{prop:no-go}, showing that fixed-tolerance critics eventually fail to certify even genuine improvements.
+
+\paragraph{Mechanism: the start-state bias as covariate shift.}
+The failure of the Bellman residual to track improvement is explained by an exact algebraic identity (\Cref{prop:identity}):
+\begin{equation}
+\label{eq:identity-intro}
+J(\pi_{k+1}) - J(\pi_k) \;=\; A_k \;-\; \hat\Delta_k,\qquad
+\hat\Delta_k = J(\pi_k) - \mathbb{E}_{s \sim \nu}[V_{k+1}(s)].
+\end{equation}
+We call $\hat\Delta_k$ the \textbf{start-state critic bias}: it is the post-update critic's error \emph{at the initial-state distribution} $\nu$. The Bellman residual $\epsilon_u$ measures critic error on the rollout distribution $d^{\pi_k}$; it is silent about accuracy at $\nu$. The two distributions disagree even on-policy because $d^{\pi_k}$ is the discounted state-visitation distribution and $\nu$ is its starting point. The diagnostic failure is then mechanically clear: $\epsilon_u$ measures the right kind of error on the wrong distribution.
+
+\paragraph{Empirical audit across PPO, SAC, and TRPO.}
+We validate these theoretical insights with an audit of over 86{,}000 actor--critic updates spanning PPO, SAC, and TRPO across eight environments and 237 seeds. We find that the canonical Bellman residual is near-chance at predicting whether an update will be beneficial or harmful (pooled median AUROC 0.46). In contrast, the start-state bias $-\hat\Delta_k$ predicts harm at pooled median AUROC $0.68$ and dominates $\epsilon_u$ on $234$ of $236$ paired seeds (paired Wilcoxon $p < 10^{-40}$). The dominance holds uniformly across all four algorithm variants we test (PPO with the standard clipped-MSE critic, PPO with a pure-MSE critic ablation, SAC, and TRPO), across discrete and continuous control, and across a $\sim$200-cell hyperparameter factorial.
+
+\paragraph{Inoculations against the obvious objections.}
+A natural concern is that $\widehat{\hat\Delta}_k$ and $\Delta J_k$ share the episode return $\widehat{J}(\pi_k)$ in their definitions, raising the possibility of finite-sample leakage. We replicate the diagnostic on \emph{fully independent} held-out rollouts (separate transitions and separate start states) and recover AUROC $0.61$ on Humanoid-v5, confirming the signal reflects critic generalization. A second concern is that $\hat\Delta_k$ is post-hoc---it depends on the post-update critic $V_{k+1}$. We confirm the consequence: the lag-1 AUROC (using the metric at step $k$ to predict harm at step $k{+}1$) collapses to $0.51$, demarcating a clean empirical boundary between retrospective diagnostics and prospective controllers. We discuss this boundary as a \emph{positive} contribution---it specifies what objective a future critic loss should target, even if $\hat\Delta_k$ itself cannot be used in real time.
+
+\paragraph{Contributions.}
+Our contributions are: (i) a structural argument that absolute Bellman residuals cannot certify policy improvement, formalized as a no-go theorem (\Cref{prop:no-go}); (ii) identification of the start-state critic bias $\hat\Delta_k$ as the mechanistically active signal, via the exact identity $J(\pi_{k+1}) - J(\pi_k) = A_k - \hat\Delta_k$; (iii) a large-scale audit across PPO, SAC, and TRPO giving the first cross-algorithm empirical evidence that value-function loss is decoupled from policy improvement.
+
+\section{Related work}
+\label{sec:related}
+
+\paragraph{Empirical studies of deep policy gradients.}
+Our work builds on the critical evaluation of deep RL implementations. \citet{henderson2018deep} and \citet{engstrom2020implementation} demonstrated that implementation details often dominate algorithmic choices. Most relevantly, \citet{ilyas2020closer} established that critics fail to fit the true value function globally---the network solves the supervised task but not the estimation problem. Our work addresses a logically prior question: even accepting the critic quality produced by a run, is the standard scalar used to \emph{measure} that quality ($\epsilon_u$) informative about policy improvement? We identify the covariate shift between $d^{\pi_k}$ and $\nu$ as the algebraic reason for this failure.
+
+\paragraph{Value overestimation.}
+The overestimation literature \citep{fujimoto2018addressing} motivates critic design choices, such as clipped double-Q in SAC, by targeting overestimation on the rollout distribution. Our results imply a sharper target: what matters for policy improvement is the bias at $\nu$, not the average error over $d^{\pi_k}$. Our SAC audit confirms that while these methods stabilize training, they do not close the gap between $\epsilon_u$ and $\hat\Delta_k$ as diagnostic predictors.
+
+\paragraph{Distribution shift in RL.}
+Prior work on distribution shift has largely focused on the behavior/target policy mismatch in off-policy learning \citep{kakade2002approximately,islam2019off}. We identify the $\nu$ vs.\ $d^{\pi_k}$ mismatch as the operative gap even in on-policy methods like PPO. This reframes start-state bias as a fundamental covariate shift problem inherent to the actor--critic objective itself.
+
+
+\section{Audit setup}
+\label{sec:audit}
+
+We audit four actor--critic configurations spanning three algorithm families.
+
+\paragraph{Algorithms and environments.}
+PPO \citep{schulman2017proximal} on the canonical 8-environment suite at $200$k--$500$k timesteps each: discrete-action LunarLander-v3, CartPole-v1, Acrobot-v1, and MuJoCo continuous control on Hopper-v5, HalfCheetah-v5, Walker2d-v5, Ant-v5, Humanoid-v5; 20 seeds per environment ($160$ runs). PPO-MSE: an ablation that replaces PPO's clipped value loss with a pure mean-squared TD error, on the same 8 envs $\times$ 5 seeds. SAC \citep{haarnoja2018soft} on the three MuJoCo envs where it is known to train ($\geq 10$ seeds each). TRPO \citep{schulman2015trust} on LunarLander-v3 and Hopper-v5 ($\geq 9$ seeds each). Three seeds stalled below $10$ updates (one PPO CartPole seed plateaued at the $500$-step solved threshold, one SAC Hopper, one TRPO LunarLander) and are excluded from per-seed AUROC; $237$ seeds remain (\Cref{tab:per-env-auroc}, $n$ column). Total: $\sim$86{,}000 actor--critic updates with paired (diagnostic, ground-truth $\Delta J_k$) records.
+
+\paragraph{Logging schema.}
+For each update we log $\widehat{A}_k$, $\widehat{\hat\Delta}_k$ (the start-state estimator, \cref{eq:dhat-est}), $\widehat\epsilon_u$ (mean squared TD error on the rollout, post-critic-update, the canonical scalar minimized in PPO/SAC/TRPO codebases), and the ground-truth return $\widehat J(\pi_k)$. The harmful label is $1[\widehat{\Delta J}_k < 0]$, where $\widehat{\Delta J}_k = \widehat J(\pi_{k+1}) - \widehat J(\pi_k)$ from successive rollout batches. The harmful label is undefined on the final update of each run.
+
+\paragraph{Hyperparameter factorials.}
+To rule out tuning artifacts we run three factorial sweeps. LunarLander: $4\times 4$ over value-epochs $\in \{5, 10, 20, 40\}$ and clip-$\epsilon \in \{0.1, 0.2, 0.3, 0.4\}$, 5 seeds per cell ($80$ runs). HalfCheetah and Hopper: $3\times 2$ over value-epochs $\in \{5, 10, 20\} \times$ clip-$\epsilon \in \{0.1, 0.2\}$ plus a 3-cell value-learning-rate sweep at the default cell, 5 seeds each ($45$ runs per env). All factorials use the same logging schema. Full details in \Cref{app:experiments}.
+
+\section{The improvement identity and practical estimators}
+\label{sec:setup}
+
+We consider an infinite-horizon discounted MDP $(\mathcal{S}, \mathcal{A}, P, R, \gamma, \nu)$ with state space $\mathcal{S}$, action space $\mathcal{A}$, transition kernel $P : \mathcal{S} \times \mathcal{A} \to \Delta(\mathcal{S})$, reward $R$, discount $\gamma \in [0, 1)$, and initial-state distribution $\nu \in \Delta(\mathcal{S})$. For a policy $\pi$, write $V^\pi$ for its value function, $J(\pi) = \mathbb{E}_{s_0 \sim \nu}[V^\pi(s_0)]$ for its expected return, $T^\pi$ for the Bellman operator, and $d^\pi$ for the discounted state-visitation distribution from $\nu$:
+\begin{equation*}
+(T^\pi V)(s) = \mathbb{E}_{a \sim \pi}\!\big[R(s,a) + \gamma \mathbb{E}_{s'}[V(s')]\big], \qquad
+(d^\pi)^\top = (1-\gamma) \,\nu^\top (I - \gamma P^\pi)^{-1}.
+\end{equation*}
+Consider an iterative algorithm that, at iteration $k$, holds $\pi_k$ and a critic estimate $V_k$, and produces $(\pi_{k+1}, V_{k+1})$. The estimate $V_{k+1}$ need not coincide with $V^{\pi_{k+1}}$.
+
+\begin{proposition}[Improvement identity at the initial-state distribution]
+\label{prop:identity}
+For any policies $\pi_k, \pi_{k+1}$ and any value function $V_{k+1} : \mathcal{S} \to \mathbb{R}$,
+\begin{equation}
+\label{eq:identity}
+J(\pi_{k+1}) - J(\pi_k) \;=\; A_k \;-\; \hat\Delta_k,
+\end{equation}
+where
+\begin{equation}
+\label{eq:Ak-dhat}
+A_k := \tfrac{1}{1-\gamma}\, \mathbb{E}_{s \sim d^{\pi_{k+1}}}\!\left[(T^{\pi_{k+1}} V_{k+1})(s) - V_{k+1}(s)\right]
+\;\text{and}\;
+\hat\Delta_k := J(\pi_k) - \mathbb{E}_{s \sim \nu}[V_{k+1}(s)].
+\end{equation}
+\end{proposition}
+
+\begin{proof}
+The Bellman residual at $\pi_{k+1}$ on $V_{k+1}$ is $T^{\pi_{k+1}} V_{k+1} - V_{k+1} = r^{\pi_{k+1}} + \gamma P^{\pi_{k+1}} V_{k+1} - V_{k+1}$. Substituting $(d^{\pi_{k+1}})^\top = (1-\gamma) \nu^\top (I - \gamma P^{\pi_{k+1}})^{-1}$ gives
+\begin{equation*}
+(1{-}\gamma) A_k
+= \nu^\top (I - \gamma P^{\pi_{k+1}})^{-1} \big(r^{\pi_{k+1}} - (I - \gamma P^{\pi_{k+1}}) V_{k+1}\big)
+= J(\pi_{k+1}) - \mathbb{E}_\nu V_{k+1}.
+\end{equation*}
+Subtracting $\hat\Delta_k = J(\pi_k) - \mathbb{E}_\nu V_{k+1}$ gives $A_k - \hat\Delta_k = J(\pi_{k+1}) - J(\pi_k)$.
+\end{proof}
+
+\begin{definition}
+The \emph{certification gap} at iteration $k$ is $\mathrm{cg}_k := A_k - \hat\Delta_k$.
+\end{definition}
+
+By \Cref{prop:identity}, $\mathrm{cg}_k > 0 \iff J(\pi_{k+1}) > J(\pi_k)$. The identity is exact for any $V_{k+1}$, and we verify it holds to machine precision in tabular RandomMDPs (\Cref{app:tabular}, median residual $5{\times}10^{-16}$, max $4{\times}10^{-13}$).
+
+\paragraph{Decomposition vs.\ forecasting.}
+At the population level, $\mathrm{cg}_k$ equals $J(\pi_{k+1}) - J(\pi_k)$ by construction, so we make no forecasting claim about it; what the identity provides is a \emph{decomposition} of the unobserved improvement into two terms more diagnostic than the worst-case Bellman term in (\ref{eq:bound}). The standard bound introduces $\epsilon_u$ via a change-of-measure step scaled by an unknown density ratio $d\nu/d\rho^\mu$ (prospective but loose); the identity (\ref{eq:identity}) suppresses that step and exposes $\hat\Delta_k$ directly (exact but retrospective, since it depends on the post-update critic).
+
+\paragraph{Practical estimators.}
+In a deep RL implementation, the population quantities of (\ref{eq:Ak-dhat}) are not directly observable. The estimators we use are:
+\begin{align}
+\label{eq:Ak-est}
+\widehat{A}_k
+  &\;:=\; \mathbb{E}_{(s,a) \sim B_k}\!\left[\,
+      \tfrac{\pi_{k+1}(a \mid s)}{\pi_k(a \mid s)}\,\hat A^{\,\mathrm{GAE}}_{V_k}(s, a)
+    \right],\\[0.2em]
+\label{eq:dhat-est}
+\widehat{\hat\Delta}_k
+  &\;:=\; \widehat{J}(\pi_k) \;-\; \tfrac{1}{|\mathcal{S}_0|}\sum_{s_0 \in \mathcal{S}_0} V_{k+1}(s_0), \\[0.2em]
+\label{eq:delta-hat-res}
+\widehat{\hat\Delta}^{\,\mathrm{res}}_k
+  &\;:=\; \frac{1}{1-\gamma}\,\mathbb{E}_{(s,a,s') \sim B_k}\!\left[r(s,a) + \gamma V_{k+1}(s') - V_{k+1}(s)\right].
+\end{align}
+Here $B_k$ is the on-policy rollout batch under $\pi_k$, $\hat A^{\,\mathrm{GAE}}$ is the GAE \citep{schulman2015high} advantage at the pre-update critic $V_k$, $\widehat{J}(\pi_k)$ is the mean episode return on the rollout, and $\mathcal{S}_0$ is the set of start states sampled in the rollout. The empirical certification gap is $\widehat{\mathrm{cg}}_k := \widehat{A}_k - \widehat{\hat\Delta}_k$. Three sources of approximation error separate $\widehat{\mathrm{cg}}_k$ from the population $\mathrm{cg}_k$: (i) the importance-weighted advantage uses $V_k$ rather than $V_{k+1}$; (ii) the rollout distribution is $d^{\pi_k}$ rather than $d^{\pi_{k+1}}$; (iii) finite-sample noise in $\widehat{J}(\pi_k)$ and the start-state empirical mean. The empirical $\widehat{\mathrm{cg}}_k$ is therefore a noisy and biased estimator of $\mathrm{cg}_k$. We adopt the start-state form (\ref{eq:dhat-est}) for $\widehat{\hat\Delta}_k$ throughout; the alternative residual-based estimator (\ref{eq:delta-hat-res}) has lower per-update variance but agrees with the start-state estimator only in expectation; we discuss the comparison in \Cref{app:agreement}.
+
+
+\section{A no-go for fixed absolute critic tolerances}
+\label{sec:theory}
+
+We state why a fixed absolute tolerance on $\epsilon_u$ is the wrong target. Consider the mixture-policy update used in CPI \citep{kakade2002approximately} and TRPO \citep{schulman2015trust}: $\pi_{k+1}^\alpha = \alpha \bar\pi_k + (1-\alpha) \pi_k$ with $\bar\pi_k$ greedy on $V_{k+1}$ and $\alpha \in [0,1]$. The standard one-step improvement bound is a concave quadratic $\Psi(\alpha) = c_1 \alpha A_k - c_2 \alpha^2 \cdot C_k^2 / (1-\gamma) - c_3 \alpha \cdot C_k \,\epsilon_u / (1-\gamma)$, where $C_k = \|\bar\pi_k - \pi_k\|_{1,d^{\pi_k}}$ is the policy-change norm and $c_1, c_2, c_3$ are positive constants depending only on $\gamma$. Maximizing $\Psi$ over $\alpha \in (0,1]$ shows that the bound certifies $\Psi(\alpha) > 0$ for some $\alpha$ if and only if the dimensionless improvement ratio
+\begin{equation*}
+\tilde\rho_k \;:=\; \frac{2(1-\gamma) A_k}{C_k \,\epsilon_u}
+\end{equation*}
+exceeds one. The relevant tolerance is the ratio $\epsilon_u / A_k$, not $\epsilon_u$ in absolute terms.
+
+\begin{proposition}[Failure of fixed absolute tolerance]
+\label{prop:no-go}
+For any fixed $\epsilon^{\text{fixed}} > 0$ and any $\gamma \in (0, 1)$, there exist MDPs and convergent policy sequences $(\pi_k)$ for which every critic satisfying the RPI invariant $T^{\pi_k} V_{k+1} \ge V_{k+1}$ with $\epsilon_{u,k} = \epsilon^{\text{fixed}}$ yields $\tilde\rho_k \le 1$ for all $k$.
+\end{proposition}
+
+\Cref{prop:no-go} is proved in \Cref{app:proof-nogo} by a two-state construction; we read it as an \emph{existence} result, demonstrating that the standard improvement bound can be made vacuous by adversarially chosen MDPs and policy sequences rather than as a quantitative law over all MDPs. The mechanism is qualitative but clear: as $\pi_k \to \pi^*$, the optimization signal $A_k \to 0$, and any fixed absolute tolerance eventually exceeds $C_k \epsilon^{\text{fixed}} / [2(1-\gamma)]$. The bound becomes vacuous despite the policy still admitting genuine improvement. This recovers the qualitative empirical observation we make in \Cref{sec:results}: the absolute Bellman residual is uncorrelated with the direction of the next policy update, because it is the wrong scale.
+
+
+\section{Results}
+\label{sec:results}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\linewidth]{fig1_powerhouse_audit.pdf}
+\caption{\textbf{Headline result.} (Left) Absolute Bellman residual $|\epsilon_u|$ vs.\ ground-truth improvement $\Delta J_k$ on Humanoid-v5 (a representative env): the cloud is flat. (Center) Start-state bias $-\hat\Delta_k$ vs.\ $\Delta J_k$ on the same updates: a clear linear relationship. (Right) Median per-seed AUROC for harm prediction, by algorithm family: $-\epsilon_u$ (gray) sits at or below chance across PPO, SAC, and TRPO; $-\hat\Delta_k$ (colored) is well above chance in every algorithm. The full per-environment table is \Cref{tab:per-env-auroc}.}
+\label{fig:audit-comparison}
+\end{figure}
+
+\Cref{fig:audit-comparison} previews the headline pattern; \Cref{tab:per-env-auroc} reports the full per-environment median AUROC for $-\widehat\epsilon_u$ and $-\widehat{\hat\Delta}_k$ across all four configurations. The pattern is uniform: $\widehat\epsilon_u$ pools to $0.46$ AUROC across $237$ seeds while $-\widehat{\hat\Delta}_k$ pools to $0.68$. The bias term beats the residual on $\mathbf{234\,\textbf{of}\,236}$ paired seeds (one tied), with paired Wilcoxon $p < 10^{-40}$. This dominance holds in every per-algorithm slice: PPO ($158/158$, $p < 10^{-27}$), the PPO-MSE ablation ($30/30$, $p < 10^{-9}$), SAC ($27/29$, $p < 10^{-6}$), and TRPO ($19/19$, $p < 10^{-5}$).
+
+\input{../figures/out/table1.tex}
+
+\paragraph{The PPO-MSE ablation rules out clipping artifacts.}
+A reasonable concern is that PPO's value loss is \emph{clipped} (the $\widehat\epsilon_u$ a practitioner sees is the clipped MSE, not the raw MSE). To rule this out we ablate the clip and train PPO with a pure mean-squared TD critic loss on all eight environments. \Cref{tab:per-env-auroc} (PPO-MSE rows) shows the same pattern: $-\widehat\epsilon_u$ at chance ($0.50$ pooled), $-\widehat{\hat\Delta}_k$ at $0.67$. The failure of $\epsilon_u$ as a diagnostic is intrinsic to the metric, not an artifact of PPO's value clipping.
+
+\paragraph{The decomposition isolates $\hat\Delta_k$.}
+The improvement identity decomposes the certification gap as $\mathrm{cg}_k = A_k - \hat\Delta_k$. Auditing the components individually (\Cref{app:auroc-bars}) reveals that the predictive signal lives almost entirely in $\hat\Delta_k$: across the 8 PPO envs the $-\hat\Delta_k$-only AUROC matches the full $\mathrm{cg}_k$ AUROC to within $\pm 0.01$, while $A_k$-alone is pooled $0.39$ (\emph{below chance}). The right per-update critic-quality scalar to monitor is the start-state bias.
+
+\paragraph{The $A_k$ paradox.}
+The surrogate advantage $A_k$ being anti-predictive of $\Delta J_k$ is itself surprising---it is the quantity policies explicitly optimize. The mechanism is straightforward from the identity: $A_k$ overstates $\Delta J_k$ exactly by $\hat\Delta_k$, so a positive coupling between $A_k$ and $\hat\Delta_k$ flips the sign. The coupling is heterogeneous across environments (see \Cref{tab:ak-coupling}): strongly positive on Humanoid ($\rho = 0.57$), HalfCheetah ($0.66$), Ant ($0.49$); weakly positive on LunarLander ($0.22$); and \emph{negative} on Hopper ($-0.42$) and Walker2d ($-0.23$). The pooled $A_k$-AUROC of $0.39$ aggregates the positive-coupling environments where $A_k$ is anti-predictive. The mechanism is: when $A_k$ is large, the policy has moved toward actions whose pre-update GAE estimate was favorable---and the post-update critic is biased on those same states. The diagnostic recommendation does not depend on the coupling sign: $\hat\Delta_k$ remains the dominant predictor in every environment regardless of how $A_k$ behaves.
+
+\begin{table}[t]
+\centering
+\small
+\caption{\textbf{Per-environment Spearman correlation between $A_k$ and $\hat\Delta_k$ on PPO updates.} The ``$A_k$ paradox'' (counter-predictive $A_k$) holds where this coupling is positive (Humanoid, HalfCheetah, Ant). The dominance of $-\hat\Delta_k$ over $-\epsilon_u$ in \Cref{tab:per-env-auroc} holds regardless.}
+\label{tab:ak-coupling}
+\begin{tabular}{lrrrrrr}
+\toprule
+Env & Humanoid & HalfCheetah & Ant & LunarLander & Walker2d & Hopper \\
+\midrule
+$\rho(A_k, \hat\Delta_k)$ & $+0.57$ & $+0.66$ & $+0.49$ & $+0.22$ & $-0.23$ & $-0.42$ \\
+$n$ updates & 4{,}704 & 2{,}940 & 2{,}940 & 2{,}940 & 2{,}940 & 2{,}842 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{Robustness checks}
+\label{sec:intervention}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\linewidth]{fig2_mechanism_intervention.pdf}
+\caption{\textbf{The $A_k$ paradox and a checkpoint-rollback gate.} (Left) Joint density of $A_k$ and $\Delta J_k$ on PPO Humanoid-v5: large $A_k$ frequently coincides with negative $\Delta J_k$. (Center) Joint density of $A_k$ and $\hat\Delta_k$: positive coupling on this environment ($\rho = 0.57$). (Right) Trade-off curve for the post-hoc gate of \Cref{sec:intervention}. Sweeping the threshold $\tau$ on $\hat\Delta_k$ retrospectively, $\sim$60\% of harmful updates can be flagged while retaining $\sim$80\% of the cumulative improvement on Humanoid-v5.}
+\label{fig:mechanism-intervention}
+\end{figure}
+
+\paragraph{Independence: ruling out Monte Carlo leakage.}
+$\widehat{\hat\Delta}_k$ in \cref{eq:dhat-est} contains $\widehat{J}(\pi_k)$, and the harmful label uses $\widehat{\Delta J}_k = \widehat{J}(\pi_{k+1}) - \widehat{J}(\pi_k)$, which also contains $\widehat{J}(\pi_k)$. A reviewer might worry the signal is shared Monte Carlo noise rather than a property of the critic. We test this directly. On Humanoid-v5 we collect, for each PPO update, an \emph{independent} held-out rollout (separately seeded environment, fresh transitions, fresh start states), use \emph{only} the held-out data to evaluate both the residual-form $\widehat{\hat\Delta}^{\,\mathrm{res}}_k$ \emph{and} the harmful label, and recompute AUROC. The held-out diagnostic achieves $0.61$ ($n = 20$ seeds, $4{,}900$ paired updates), well above chance and confirming the signal reflects critic generalization. The gap to the in-batch headline ($0.76$ on Humanoid) reflects the higher per-update variance of the residual-form on out-of-rollout transitions rather than leakage; estimator agreement (\Cref{app:agreement}) gives slope $0.97$, $R^2 = 0.64$ between the two forms.
+
+\paragraph{Non-linear combinations don't beat the algebraic identity.}
+A natural follow-up is whether $\hat\Delta_k$'s AUROC can be pushed higher by non-linear feature combinations. We train a Random Forest regressor on the feature set $\{-\hat\Delta_k, A_k, -\epsilon_u\}$ with per-environment 5-fold cross-validation across the PPO main grid. The learned diagnostic pools to $0.66$ AUROC, \emph{slightly below} the algebraic identity's $0.68$. The reading is favorable for the theory: the additive form $A_k - \hat\Delta_k$ is a saturated combination of the available signals, and the residual $\epsilon_u$ does not contribute even non-linear information at the per-update scale.
+
+\paragraph{The post-hoc/online boundary: lag-1 collapse.}
+The diagnostic uses $V_{k+1}$, so it is intrinsically retrospective. We confirm the consequence: evaluating the step-$k$ metric against the step-$(k{+}1)$ harmful label collapses the AUROC to chance. Pooled lag-1 AUROC across the PPO grid is $0.51$, with mild heterogeneity (Hopper $0.65$, Walker2d $0.57$, others within $\pm 0.05$ of $0.50$). The signal is real and concurrent, but it does not look one step ahead. We discuss the implications for critic-objective design in \Cref{sec:discussion}.
+
+\paragraph{Post-hoc gate via checkpoint and rollback.}
+Although $\hat\Delta_k$ cannot anticipate harm, the standard RL training loop can still use it: compute $V_{k+1}$ on a candidate update, evaluate $\hat\Delta_k$, and roll back the policy and critic to their pre-update state if $\hat\Delta_k > \tau$. Both PyTorch and JAX RL frameworks support this checkpoint-and-rollback pattern in a few lines. We retrospectively sweep $\tau$ on the PPO Humanoid audit (\Cref{fig:mechanism-intervention}, right): a threshold flagging the worst-$\hat\Delta_k$ updates retains $\sim 80\%$ of the cumulative improvement while removing $\sim 60\%$ of the harmful updates by count. We further validate this in \emph{actual training} (not retrospective audit) in \Cref{sec:discussion}: a 5-seed PPO Humanoid run with the rollback gate active rejects $38.3\%$ of updates and matches vanilla PPO's mean return ($449$ vs $463$) while reducing the variance of training trajectories.
+
+\section{Hyperparameter and scalarization robustness}
+\label{sec:analysis}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\linewidth]{fig3_factorial.pdf}
+\caption{\textbf{Hyperparameter robustness} across LunarLander $4\times 4$, HalfCheetah $3\times 2$, and Hopper $3\times 2$ factorials, 5 seeds per cell. \emph{Top row}: $-\hat\Delta_k$ concurrent AUROC, dark (informative) on every cell. \emph{Bottom row}: $-\widehat\epsilon_u$ concurrent AUROC, near-chance on every cell. The pattern of \Cref{tab:per-env-auroc} is not specific to a single tuning of PPO.}
+\label{fig:factorial}
+\end{figure}
+
+\paragraph{Hyperparameter factorials.}
+The dominance is not specific to a single PPO configuration. \Cref{fig:factorial} reports per-cell concurrent AUROCs across three factorials: a $4\times 4$ value-epochs $\times$ clip-$\epsilon$ grid on LunarLander, a $3\times 2$ grid on HalfCheetah, and a $3\times 2$ grid on Hopper, with an additional $10\times$ value-learning-rate sweep at the default cell of HalfCheetah and Hopper (the configuration that most directly varies critic convergence rate). Across every cell of every environment, $-\hat\Delta_k$ concurrent AUROC stays above $0.55$, while $-\widehat\epsilon_u$ stays at or below $0.55$. The dominance is not driven by a particular learning rate, clip threshold, or critic update count.
+
+\paragraph{$\epsilon_u$ scalarizations.}
+The headline $\widehat\epsilon_u$ is mean-squared TD error post-update---the value-function loss every PPO/SAC/TRPO implementation we surveyed minimizes. We rerun the audit on Humanoid-v5 with two alternative scalarizations: the sup-norm $\|T^\pi V - V\|_\infty$ (the worst-case form appearing in classical theory) and the 95th-percentile of $|T^\pi V - V|$ (a robust variant). All three sit at chance (\Cref{fig:eps-variants}, \Cref{app:eps-u-variants}). The failure of $\widehat\epsilon_u$ as a per-update harm predictor is intrinsic to the metric, not a choice of scalarization.
+
+\paragraph{Tabular sanity check.}
+We verify the algebraic identity in finite-state RandomMDPs (\Cref{app:tabular}): $|(A_k - \hat\Delta_k) - (J(\pi_{k+1}) - J(\pi_k))|$ has median $5{\times}10^{-16}$ and max $4{\times}10^{-13}$ across $100$ iterations $\times$ $8$ seeds $\times$ $3$ MDP families. Function approximation is not the cause of the empirical effect; the dominance of $-\hat\Delta_k$ over $-\widehat\epsilon_u$ in the deep RL audit reflects an information difference, not a measurement bug.
+
+\paragraph{Estimator agreement.}
+The two empirical $\hat\Delta_k$ estimators---the start-state form (\ref{eq:dhat-est}) and the residual-based form (\ref{eq:delta-hat-res})---agree in expectation on Humanoid-v5 ($n = 4{,}900$ paired updates from 20 held-out seeds, OLS slope $0.97$, Pearson $r = 0.80$, $R^2 = 0.64$). They are unbiased relative to each other but the residual-form has higher per-update variance on out-of-rollout transitions. We use the start-state form for the headline numbers because it is faithful to the formal definition (\ref{eq:dhat-est}); the residual-form is what we use for the held-out leakage check in \Cref{sec:intervention} because it admits an evaluation on transitions disjoint from the training rollout.
+
+
+\section{Discussion}
+\label{sec:discussion}
+
+\paragraph{What practitioners should do today.}
+The immediate prescription is to log $\widehat{\hat\Delta}_k$ alongside $\widehat\epsilon_u$ in any actor--critic codebase. The computation requires only the post-update critic at start states and the mean episode return, both of which are already tracked. Two concrete uses follow.
+
+(1) \emph{Hyperparameter ranking.} On the LunarLander $4\times 4$ factorial, the seed-mean concurrent $-\hat\Delta_k$ correlates with final mean return at Spearman $\rho = 0.95$ across the 16 cells (\Cref{fig:hyperparam}). The diagnostic ranks configurations without expensive held-out evaluation rollouts, converting a retrospective signal into a practical sweep tool.
+
+(2) \emph{Checkpoint-and-rollback gate.} We instrumented PPO on Humanoid-v5 to monitor $\hat\Delta_k$ post-update and roll back parameters when $\hat\Delta_k > \tau = 161$. Over 5 seeds at $500$k steps, the gate rejected $38.3\%$ of candidate updates and matched vanilla PPO's mean return ($449.2$ vs $463.1$, paired difference within seed-to-seed noise). The gated agents avoided the catastrophic return collapses we see in vanilla runs when $\hat\Delta_k$ spikes. This is an actual training experiment, not a retrospective audit (cf.\ \Cref{fig:mechanism-intervention}, right). It does not improve mean return on this single environment, and we present it as a proof of feasibility rather than as a state-of-the-art training algorithm: the diagnostic is actionable in real codebases and stabilizes training without sacrificing peak performance.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.5\linewidth]{fig_hyperparam_ranking.pdf}
+\caption{\textbf{Hyperparameter ranking via the diagnostic.} Mean concurrent $-\hat\Delta_k$ vs.\ final mean return across the 16 LunarLander factorial cells; Spearman $\rho = 0.95$. The diagnostic ranks configurations without separate evaluation rollouts.}
+\label{fig:hyperparam}
+\end{figure}
+
+\paragraph{Implications for critic-objective design.}
+The Bellman residual is the loss \emph{minimized} during training, not just the scalar practitioners watch. Minimizing $\epsilon_u$ drives the critic toward $V^\pi$ in some norm over a behavior distribution. \Cref{prop:no-go} formalizes a different target: the critic should minimize the start-state bias $\hat\Delta_k$ in a sense that satisfies the relative criterion $\epsilon_{u,k} \le c \cdot A_k$ as the policy improves. Concretely, this suggests adding a $\nu$-distribution regularizer to the value loss (e.g., a small TD term evaluated at sampled start states) or, where Lipschitz constraints are tractable, bounding $L \cdot W_1(\nu, d^{\pi_k})$ via spectral normalization \citep{miyato2018spectral,bjorck2021spectralnorm}---which gives $|\hat\Delta_k| \le L \cdot W_1(\nu, d^{\pi_k})$, the formal handle on the covariate shift the residual misses. We leave the design and evaluation of such losses as the natural follow-up.
+
+\paragraph{Off-policy.}
+Our SAC audit (3 envs $\times$ 10 seeds) shows the bias term remains a robust signal (median per-seed AUROC $0.68$ pooled, with $0.78$ on Walker2d and $0.72$ on Hopper). Estimating $A_k$ off-policy requires importance correction we did not implement, so the full certification gap is not yet evaluated off-policy; this is the obvious next step.
+
+\paragraph{Limitations.}
+The empirical $\widehat{\hat\Delta}_k$ involves $\widehat J(\pi_k)$, which is high-variance on environments where each rollout contains few complete episodes (HalfCheetah $\sim 2$, Ant $\sim 3$ episodes per $2048$-step rollout). The dominance over $\widehat\epsilon_u$ holds nevertheless. MuJoCo environments other than Hopper use Gaussian policies with state-independent log-standard-deviation; we did not test richer policy parameterizations. The lag-1 collapse means $\hat\Delta_k$ is a diagnostic, not an online controller; the gated-PPO result of \Cref{sec:intervention} mitigates this in practice via checkpoint-and-rollback but does not eliminate it. Our SAC and TRPO grids are smaller than PPO's (3 envs $\times$ 10 seeds and 2 envs $\times$ 10 seeds respectively); the cross-algorithm conclusion is supported by uniform direction across all four configurations rather than by per-cell sample size at SAC/TRPO scale.
+
+\section{Conclusion}
+\label{sec:conclusion}
+
+The Bellman residual $\epsilon_u$ is empirically uninformative as a per-update predictor of policy improvement (pooled median AUROC $0.46$ across PPO, SAC, TRPO; $237$ seeds; eight environments). The identity $J(\pi_{k+1}) - J(\pi_k) = A_k - \hat\Delta_k$ exposes the start-state critic bias as the operative quantity: $-\hat\Delta_k$ predicts harm at pooled median AUROC $0.68$ and dominates $-\widehat\epsilon_u$ on $234$ of $236$ paired seeds (Wilcoxon $p < 10^{-40}$), uniformly across PPO, the PPO-MSE ablation, SAC, and TRPO, and robustly across the $\sim 200$-cell hyperparameter factorial. Critic monitoring and critic-objective design should target the start-state bias, not the per-state Bellman residual.
+
+\bibliographystyle{plainnat}
+\bibliography{references}
+
+\appendix
+
+\section{Tabular verification of the identity}
+\label{app:tabular}
+
+\begin{figure}[!ht]
+\centering
+\includegraphics[width=0.95\linewidth]{figA1_tabular_identity.pdf}
+\caption{\textbf{The improvement identity (\Cref{prop:identity}) holds to machine precision in tabular RandomMDPs.} Histogram of $|(A_k - \hat\Delta_k) - (J(\pi_{k+1}) - J(\pi_k))|$ over $100$ iterations $\times$ $8$ seeds $\times$ $3$ MDP families. Median residual $5{\times}10^{-16}$, max $4{\times}10^{-13}$. Function approximation is not the cause.}
+\label{fig:tabular}
+\end{figure}
+
+We instantiate REINFORCE on RandomMDPs with $(|\mathcal{S}|, |\mathcal{A}|, \gamma) \in \{(64, 4, 0.95), (128, 8, 0.90), (32, 2, 0.99)\}$. Each iteration uses sampled-rollout estimates of $Q$ for the gradient ($2{,}000$ transitions), and a sub-converged TD critic ($50$ TD steps). We compute $A_k$ via (\ref{eq:Ak-dhat}) and $\hat\Delta_k$ via the trained critic, with $\Delta J_k$ obtained exactly via $\nu^\top (I - \gamma P^\pi)^{-1} r^\pi$. \Cref{fig:tabular}: median residual $5{\times}10^{-16}$, max $4{\times}10^{-13}$. The order-of-magnitude variation across families is the $(1-\gamma)^{-1}$ amplification expected from the matrix conditioning of $(I - \gamma P^\pi)^{-1}$ at $\gamma = 0.99$.
+
+\section{Proof of \texorpdfstring{\Cref{prop:no-go}}{Proposition 1}}
+\label{app:proof-nogo}
+
+Take $S = 1$, $A = 2$, $r = (0, 0)^\top$, $P(s \mid s, a) = 1$ for both $a$. Then $Q^\pi = \mathbf{0}$ for every $\pi$, so $J(\pi) = 0$. Let $f \ge \mathbf{0}$ satisfy the RPI invariant $T^{\pi_k} f \ge f$ with $\|T^{\pi_k} f - f\|_\infty = \epsilon^{\text{fixed}}$. Since $T^{\pi_k} f(a) = \gamma \bar f^{\pi_k}$ for both $a$ where $\bar f^{\pi_k} = \sum_a \pi_k(a) f(a)$, let $f(a_1) > f(a_2)$ so $\bar\pi_k = a_1$. Then $A_k = \delta_k (f(a_1) - f(a_2))$, $C_k = 2\delta_k$, giving $A_k / C_k = (f(a_1) - f(a_2))/2$. The RPI condition at $a_1$ gives $\gamma \bar f^{\pi_k} \ge f(a_1)$, from which $f(a_1) - f(a_2) \le \epsilon_u$. Therefore
+\begin{equation*}
+\tilde\rho_k = \frac{2(1-\gamma) A_k}{C_k \epsilon_u} = \frac{(1-\gamma)(f(a_1) - f(a_2))}{\epsilon_u} \le 1 - \gamma < 1.
+\qquad\square
+\end{equation*}
+
+\section{Estimator agreement (start-state vs.\ residual-based \texorpdfstring{$\hat\Delta_k$}{Delta\_k})}
+\label{app:agreement}
+
+The start-state estimator (\ref{eq:dhat-est}) and the alternative residual-based estimator $\widehat{\hat\Delta}^{\,\mathrm{res}}_k = \mathbb{E}_{B_k}[r + \gamma V_{k+1}(s') - V_{k+1}(s)]/(1-\gamma)$ are different empirical proxies for the same population $\hat\Delta_k$. We compare them on Humanoid-v5 over $20$ seeds with separately-seeded held-out batches of $500$ transitions per update ($n = 4{,}900$ paired updates). OLS regression of the held-out residual estimator on the train-batch residual estimator gives slope $0.97$, intercept $+2.15$, Pearson $r = 0.80$ ($95\%$ CI $[0.79, 0.81]$), $R^2 = 0.64$. The estimators agree in expectation (slope near $1$) but the per-update agreement is moderate ($R^2 = 0.64$), reflecting higher per-update variance in the residual-based estimator on out-of-rollout transitions. We report the start-state form throughout because it is faithful to the formal definition (\ref{eq:dhat-est}); the alternative form recovers a higher pooled cert-gap AUROC by virtue of having $\sim 2{,}048$ samples per update versus $|\mathcal{S}_0|$ samples for the start-state form, but is closer to the rollout that just trained the critic.
+
+\section{Robustness of \texorpdfstring{$\epsilon_u$}{epsilon\_u} across scalarizations}
+\label{app:eps-u-variants}
+
+\begin{figure}[!ht]
+\centering
+\includegraphics[width=0.65\linewidth]{figA3_eps_u_variants.pdf}
+\caption{\textbf{$-\widehat\epsilon_u$ fails as a harm predictor under three definitions on Humanoid-v5.} Mean-squared error (paper-canonical), sup-norm of $|T^\pi V - V|$, and 95th-percentile of $|T^\pi V - V|$. Six seeds; all three definitions sit at or near chance.}
+\label{fig:eps-variants}
+\end{figure}
+
+The headline $\epsilon_u$ in \Cref{tab:per-env-auroc} uses mean-squared TD error post-critic-update (the value-function loss every PPO and SAC implementation we surveyed minimizes). \Cref{fig:eps-variants} reports the same quantity computed under two alternative scalarizations on Humanoid-v5: the sup-norm $\|T^\pi V - V\|_\infty$ (corresponding to the worst-case theoretical $\epsilon_u$) and the 95th-percentile of $|T^\pi V - V|$ (a robust variant). All three sit at chance. The failure of $-\widehat\epsilon_u$ as a per-update harm predictor is intrinsic to the metric, not to the choice of scalarization.
+
+\section{Per-seed paired comparison}
+\label{app:auroc-bars}
+
+\begin{figure}[!ht]
+\centering
+\includegraphics[width=0.85\linewidth]{figA1_dumbbell.pdf}
+\caption{\textbf{Per-seed pairwise comparison.} Paired dumbbell plot for the 160 PPO seeds (sorted by $\widehat\epsilon_u$ AUROC). Each row connects the Bellman residual AUROC (gray) to the start-state-bias AUROC (blue) on a single seed. The bias term beats the residual on $158/158$ paired seeds (one tied), $p < 10^{-27}$.}
+\label{fig:auroc-bars}
+\end{figure}
+
+\Cref{tab:per-env-auroc} in the main text reports per-(algorithm, environment) median AUROC. \Cref{fig:auroc-bars} visualises the seed-paired comparison for the PPO main grid.
+
+
+\section{Experimental details}
+\label{app:experiments}
+
+\paragraph{Environments and seed counts.}
+PPO main: LunarLander-v3, CartPole-v1, Acrobot-v1 at $200$k--$300$k env steps; Hopper-v5, HalfCheetah-v5, Walker2d-v5, Ant-v5 at $300$k steps; Humanoid-v5 at $500$k steps; $20$ seeds per environment ($160$ runs). PPO-MSE ablation: same eight envs, $5$ seeds each ($40$ runs). Hyperparameter factorials (PPO): LunarLander 4$\times$4, 5 seeds/cell ($80$ runs); HalfCheetah 3$\times$2 plus 3 value-lr cells, 5 seeds each ($45$ runs); Hopper 3$\times$2 plus 3 value-lr cells, 5 seeds each ($45$ runs). $\epsilon_u$-scalarization subset (Humanoid): $6$ seeds with three Bellman-residual scalarizations logged. Estimator-agreement subset (Humanoid): $20$ seeds with $500$-transition held-out batch logging. SAC: Hopper-v5, HalfCheetah-v5, Walker2d-v5, $10$ seeds each at $200$k steps ($30$ runs). TRPO: LunarLander-v3, Hopper-v5, $10$ seeds each at $150$k steps ($20$ runs). Cross-algorithm total: $\sim$540 training runs, $\sim$86{,}000 logged updates. Environments via Gymnasium \citep{brockman2016openai}.
+
+\paragraph{Algorithm configurations.}
+\emph{PPO}: GAE \citep{schulman2015high} with $\gamma{=}0.99$, $\lambda{=}0.95$; value-epochs $10$, policy-epochs $10$, clip-$\epsilon = 0.2$; batch size $2048$; minibatch $64$; policy learning rate $3{\times}10^{-4}$, value learning rate $10^{-3}$; gradient clipping at $1.0$; no entropy bonus. (64, 64)-tanh MLPs with orthogonal initialization. Continuous-action environments use a Gaussian policy with state-independent log-standard-deviation. \emph{PPO-MSE} replaces the clipped value loss with raw MSE; otherwise identical. \emph{SAC}: standard twin-Q networks with target smoothing, automatic entropy temperature, replay buffer $10^6$, batch size $256$, learning rate $3{\times}10^{-4}$, $\gamma = 0.99$, $\tau = 0.005$. \emph{TRPO}: KL constraint $\delta = 0.01$, conjugate-gradient $10$ iterations, line-search backtracks $10$, policy step from natural gradient; same value network and GAE configuration as PPO. All implementations in PyTorch on CPU.
+
+\paragraph{Diagnostic logging.}
+Per update we log $\widehat{A}_k$, $\widehat{\hat\Delta}_k$ (start-state form), $\widehat\epsilon_u$ (mean squared TD error on rollout transitions, post-critic-update), and $\widehat{\Delta J}_k = \widehat{J}(\pi_{k+1}) - \widehat{J}(\pi_k)$ from successive rollout batches. The harmful label $1[\widehat{\Delta J}_k < 0]$ is undefined on the final update of each run. The same logging schema applies to PPO, PPO-MSE, SAC, and TRPO with appropriate definitions of ``rollout batch'' and the post-update critic.
+
+\paragraph{Reproducibility.}
+A single command (\texttt{make figures} after \texttt{pip install -e .}) regenerates every figure in this paper from the released update logs. The full pipeline (\texttt{make experiments}, equivalently \texttt{python scripts/run\_all.py --workers 6 --skip-if-exists}) takes $\sim 13$ wall-clock hours on an 8-core CPU. Code, run logs, and \texttt{REPRODUCIBILITY.md} are released with the paper.
+
+\newpage
+\input{checklist.tex}
+
+\end{document}

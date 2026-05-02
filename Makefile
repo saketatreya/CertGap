@@ -1,35 +1,63 @@
-# CertGap Reproduction Makefile
+# CertGap reproduction Makefile.
+#
+# Common targets:
+#   make install     # set up the local virtualenv and install certgap + deps
+#   make experiments # run every training run from scratch (skip-if-exists)
+#   make figures     # regenerate every paper figure and table from results/
+#   make paper       # rebuild paper/paper.pdf
+#   make verify      # run the unit tests + tabular-identity sanity check
+#   make clean       # remove build artifacts (PDFs, latex aux, pyc, figures/out)
 
-.PHONY: help install figures clean verify paper
+.PHONY: help install experiments figures paper verify clean
+
+PY := .venv/bin/python
+PYTEST := .venv/bin/pytest
+WORKERS ?= 6
 
 help:
-	@echo "CertGap Reproduction Commands:"
-	@echo "  install   : Set up the environment and dependencies"
-	@echo "  figures   : Regenerate all paper figures and tables from results"
-	@echo "  paper     : Compile the final PDF manuscript"
-	@echo "  verify    : Run smoke tests and tabular identity check"
-	@echo "  clean     : Remove build artifacts and temporary files"
+	@echo "CertGap reproduction commands:"
+	@echo "  make install     -- create .venv and install certgap (editable) + deps"
+	@echo "  make experiments -- run every training run (~13h on 8-core CPU; idempotent)"
+	@echo "  make figures     -- regenerate every figure and table from results/"
+	@echo "  make paper       -- rebuild paper/paper.pdf (requires figures + table1)"
+	@echo "  make verify      -- pytest + tabular-identity sanity check"
+	@echo "  make clean       -- remove generated PDFs, LaTeX aux files, __pycache__"
 
 install:
 	python -m venv .venv
-	.venv/bin/python -m pip install -e .
-	.venv/bin/python -m pip install "gymnasium[mujoco]"
+	$(PY) -m pip install -e .
+	$(PY) -m pip install "gymnasium[mujoco]"
 
+# Single-command full reproduction. Idempotent: skips runs whose pickle is on
+# disk. Pass WORKERS=N to set parallelism (default 6).
+experiments:
+	$(PY) scripts/run_all.py --workers $(WORKERS) --skip-if-exists --include-trpo
+
+# Regenerate every figure (main + appendix) and the headline table from the
+# pickles in results/.
 figures:
-	export PYTHONPATH=.:$$PYTHONPATH; 	mkdir -p figures/out; 	.venv/bin/python figures/fig1_powerhouse.py; 	.venv/bin/python figures/fig1_auroc_bars.py; 	.venv/bin/python figures/fig2_calibration.py; 	.venv/bin/python figures/fig3_factorial.py; 	.venv/bin/python scripts/update_audit_table.py > figures/out/table1.tex; 	.venv/bin/python scripts/compare_intervention.py; 	.venv/bin/python scripts/analyze_ak_correlation.py
+	mkdir -p figures/out figures/out/appendix
+	PYTHONPATH=. $(PY) figures/fig1_powerhouse.py
+	PYTHONPATH=. $(PY) figures/fig2_mechanism.py
+	PYTHONPATH=. $(PY) figures/fig3_factorial.py
+	PYTHONPATH=. $(PY) figures/fig_hyperparam_ranking.py
+	PYTHONPATH=. $(PY) figures/appendix/figA1_dumbbell.py
+	PYTHONPATH=. $(PY) figures/appendix/figA1_tabular_identity.py
+	PYTHONPATH=. $(PY) figures/appendix/figA3_eps_u_variants.py
+	PYTHONPATH=. $(PY) scripts/build_table1.py
 
 paper: figures
-	pdflatex paper.tex
-	bibtex paper
-	pdflatex paper.tex
-	pdflatex paper.tex
-	rm -f paper.aux paper.bbl paper.blg paper.log paper.out
+	cd paper && pdflatex -interaction=nonstopmode paper.tex
+	cd paper && bibtex paper
+	cd paper && pdflatex -interaction=nonstopmode paper.tex
+	cd paper && pdflatex -interaction=nonstopmode paper.tex
+	cd paper && rm -f paper.aux paper.bbl paper.blg paper.log paper.out paper.toc
 
 verify:
-	.venv/bin/pytest tests/
-	.venv/bin/python figures/appendix/figA1_tabular_identity.py
+	$(PYTEST) tests/
+	PYTHONPATH=. $(PY) figures/appendix/figA1_tabular_identity.py
 
 clean:
-	rm -rf .pytest_cache
-	rm -rf figures/out
-	rm -f paper.aux paper.bbl paper.blg paper.log paper.out paper.pdf
+	find . -type d -name __pycache__ -not -path "./.venv/*" -exec rm -rf {} +
+	rm -rf .pytest_cache figures/out paper/paper.pdf
+	cd paper && rm -f paper.aux paper.bbl paper.blg paper.log paper.out paper.toc
