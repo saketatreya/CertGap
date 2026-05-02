@@ -15,29 +15,54 @@ def out_path(name: str) -> Path:
     p.parent.mkdir(parents=True, exist_ok=True)
     return p
 
-def plot_scatters(ax_res, ax_bias):
+from matplotlib.patches import Ellipse
+import matplotlib.patches as patches
+
+def draw_mechanism(ax):
+    ax.set_xlim(0, 10)
+    ax.set_ylim(0, 10)
+    ax.axis("off")
+    ax.set_title("The Distribution Mismatch", fontsize=12, pad=10, fontweight="bold")
+    
+    # Draw d^\pi (Rollout Distribution)
+    d_pi = Ellipse((5, 5), width=8, height=6, angle=15, 
+                   facecolor="#e0e0e0", edgecolor="gray", linewidth=2, alpha=0.5)
+    ax.add_patch(d_pi)
+    ax.text(8.5, 6.5, r"Rollout Dist. $d^\pi$", fontsize=11, color="gray", ha="center")
+    
+    # Draw \nu (Start-State Distribution)
+    nu = Ellipse((3.5, 4.5), width=2.5, height=1.5, angle=0, 
+                 facecolor="#4c78a8", edgecolor="black", linewidth=2, alpha=0.7)
+    ax.add_patch(nu)
+    ax.text(3.5, 4.3, r"Start States $\nu$", fontsize=11, color="white", ha="center", fontweight="bold")
+    
+    # Arrow for Bellman Residual
+    ax.annotate(r"$\epsilon_u$ minimized here", xy=(6.5, 3), xytext=(8, 1.5),
+                arrowprops=dict(facecolor='gray', shrink=0.05, width=1, headwidth=6),
+                fontsize=10, color="gray", ha="center")
+                
+    # Arrow for Policy Improvement
+    ax.annotate(r"Improvement relies on here", xy=(3.5, 5.5), xytext=(2, 8),
+                arrowprops=dict(facecolor='#4c78a8', shrink=0.05, width=1, headwidth=6),
+                fontsize=10, color="black", ha="center")
+
+def plot_scatter_bias(ax_bias):
     # Use Humanoid-v5 seed 0 as a representative case
     with open("results/main/Humanoid-v5/seed_0.pkl", "rb") as f:
         log = pickle.load(f)["log"]
-        res = log["eps_u"]
         dh = log["delta_hat_k"]
         dj = log["delta_J_k"]
-        mask = np.isfinite(res) & np.isfinite(dh) & np.isfinite(dj)
-        res, dh, dj = res[mask], dh[mask], dj[mask]
+        mask = np.isfinite(dh) & np.isfinite(dj)
+        dh, dj = dh[mask], dj[mask]
         
-    ax_res.scatter(res, dj, alpha=0.3, s=10, color="gray")
-    ax_res.set_xlabel(r"Bellman Residual $|\epsilon_u|$")
-    ax_res.set_ylabel(r"Actual Improvement $\Delta J$")
-    ax_res.set_title("Absolute Residuals: Blind")
-    
     ax_bias.scatter(-dh, dj, alpha=0.3, s=10, color="#4c78a8")
     ax_bias.set_xlabel(r"Start-State Bias $-\hat\Delta_k$")
-    ax_bias.set_title("Start-State Bias: Informed")
+    ax_bias.set_ylabel(r"Actual Improvement $\Delta J$")
+    ax_bias.set_title("Start-State Bias: Operative", fontweight="bold")
     
-    # Add regression lines
-    for ax, x, y in [(ax_res, res, dj), (ax_bias, -dh, dj)]:
-        m, b = np.polyfit(x, y, 1)
-        ax.plot(x, m*x + b, color="black", linestyle="--", linewidth=1)
+    # Add regression line
+    m, b = np.polyfit(-dh, dj, 1)
+    ax_bias.plot(-dh, m*(-dh) + b, color="black", linestyle="--", linewidth=1)
 
 def plot_auroc_bars(ax):
     rows = collect_audit_rows()
@@ -62,7 +87,7 @@ def plot_auroc_bars(ax):
     ax.set_xticks(x)
     ax.set_xticklabels(algos)
     ax.set_ylabel("Median AUROC (Harm Prediction)")
-    ax.set_title("Audit Consensus")
+    ax.set_title("Audit Consensus", fontweight="bold")
     ax.legend()
     ax.set_ylim(0.35, 0.8)
 
@@ -71,10 +96,11 @@ def main():
     gs = fig.add_gridspec(1, 3)
     
     ax1 = fig.add_subplot(gs[0, 0])
-    ax2 = fig.add_subplot(gs[0, 1], sharey=ax1)
+    ax2 = fig.add_subplot(gs[0, 1])
     ax3 = fig.add_subplot(gs[0, 2])
     
-    plot_scatters(ax1, ax2)
+    draw_mechanism(ax1)
+    plot_scatter_bias(ax2)
     plot_auroc_bars(ax3)
     
     plt.tight_layout()
