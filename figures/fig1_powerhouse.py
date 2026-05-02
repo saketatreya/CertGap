@@ -38,14 +38,14 @@ def draw_mechanism(ax):
     ax.annotate("...", xy=(9.5, 5), xytext=(8.8, 5), arrowprops=dict(arrowstyle="->", lw=2, color="black", ls="--"))
     
     # Label Start State
-    ax.annotate("Improvement Target ($\\nu$)", xy=(2, 6.0), xytext=(2, 7.5),
+    ax.annotate("True Objective ($\\nu$)\nEvaluated ONLY here", xy=(2, 6.0), xytext=(2, 7.5),
                 arrowprops=dict(facecolor='#4c78a8', shrink=0.05, width=1, headwidth=6),
-                fontsize=10, color="black", ha="center", va="bottom")
+                fontsize=10, color="black", fontweight="bold", ha="center", va="bottom")
                 
     # Bracket for Rollout
-    ax.plot([1.5, 1.5, 8.5, 8.5], [4.1, 3.8, 3.8, 4.1], color="gray", lw=1.5)
-    ax.text(5, 3.4, "Rollout Distribution ($d^\\pi$)\n$\\epsilon_u$ minimized over all states",
-            fontsize=10, color="gray", ha="center", va="top")
+    ax.plot([1.5, 1.5, 8.5, 8.5], [4.1, 3.8, 3.8, 4.1], color="#e45756", lw=2)
+    ax.text(5, 3.4, "Optimization Pressure ($d^\\pi$)\n$\\epsilon_u$ minimized over all states",
+            fontsize=10, color="#e45756", fontweight="bold", ha="center", va="top")
 
 def plot_scatters(ax_res, ax_bias):
     with open("results/main/Humanoid-v5/seed_0.pkl", "rb") as f:
@@ -59,11 +59,11 @@ def plot_scatters(ax_res, ax_bias):
     ax_res.scatter(res, dj, alpha=0.3, s=10, color="gray")
     ax_res.set_xlabel(r"Bellman Residual $|\epsilon_u|$")
     ax_res.set_ylabel(r"Actual Improvement $\Delta J$")
-    ax_res.set_title("Absolute Residuals: Blind", fontsize=11, fontweight="bold")
+    ax_res.set_title("Residual is Uninformative", fontsize=10, fontweight="bold")
     
     ax_bias.scatter(-dh, dj, alpha=0.3, s=10, color="#4c78a8")
     ax_bias.set_xlabel(r"Start-State Bias $-\hat\Delta_k$")
-    ax_bias.set_title("Start-State Bias: Operative", fontsize=11, fontweight="bold")
+    ax_bias.set_title("Improvement controlled by Bias", fontsize=10, fontweight="bold")
     
     for ax, x, y in [(ax_res, res, dj), (ax_bias, -dh, dj)]:
         m, b = np.polyfit(x, y, 1)
@@ -89,11 +89,17 @@ def plot_auroc_bars(ax):
     ax.bar(x + width/2, dh_vals, width, label=r"$-\hat\Delta$", color=[colors[a] for a in algos])
     
     ax.axhline(0.5, color="black", linestyle="--", linewidth=0.8, alpha=0.5)
+    
+    # Anchor texts
+    ax.text(x[-1]+width/2 + 0.2, 0.45, "$\\epsilon_u \\approx$ chance", ha="left", va="center", color="gray", fontsize=9)
+    ax.text(x[-1]+width/2 + 0.2, 0.70, "$\\hat\\Delta \\gg$ chance", ha="left", va="center", color="#4c78a8", fontsize=9, fontweight="bold")
+    ax.set_xlim(-0.5, len(algos) + 0.5)
+    
     ax.set_xticks(x)
     ax.set_xticklabels(algos)
     ax.set_ylabel("Median AUROC")
-    ax.set_title("Audit Consensus", fontsize=11, fontweight="bold")
-    ax.legend(fontsize=9)
+    ax.set_title("Audit Consensus", fontsize=10, fontweight="bold")
+    ax.legend(fontsize=9, loc="upper left")
     ax.set_ylim(0.35, 0.8)
 
 def main():
