@@ -32,6 +32,7 @@ ALGOS = [
     ("PPO-MSE", "ppo_mse", [
         "LunarLander-v3", "Hopper-v5", "HalfCheetah-v5", "Walker2d-v5", "Ant-v5", "Humanoid-v5",
     ]),
+    ("PPO-NU",  "ppo_nu_weighted", ["Hopper-v5", "HalfCheetah-v5", "Humanoid-v5"]),
     ("SAC",     "sac",  ["Hopper-v5", "HalfCheetah-v5", "Walker2d-v5"]),
     ("TRPO",    "trpo", ["LunarLander-v3", "Hopper-v5"]),
 ]

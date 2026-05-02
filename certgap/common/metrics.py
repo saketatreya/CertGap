@@ -159,6 +159,8 @@ def per_update_log_keys(
         "policy_entropy",
         "value_loss_pre",
         "value_loss_post",
+        "value_loss_nu",     # ν-weighted critic-loss term (0 when disabled)
+        "delta_hat_abs",     # |Δ̂_k| — convenience for plotting bias-magnitude curves
         "grad_norm",
         "explained_var",
         "rejected",

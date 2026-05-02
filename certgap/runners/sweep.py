@@ -144,6 +144,38 @@ def grid_ppo_eps_u_variants(seeds=6):
     return runs
 
 
+def grid_ppo_nu_pilot(seeds=3):
+    """Lambda sweep for the ν-weighted critic loss on Humanoid-v5."""
+    runs = []
+    for lam in [0.1, 0.5, 1.0, 5.0]:
+        for s in range(seeds):
+            runs.append({"args": [
+                "--algo", "ppo", "--env", "Humanoid-v5", "--seed", str(s),
+                "--total-timesteps", "500000",
+                "--nu-loss-weight", str(lam),
+                "--output", f"results/ppo_nu_pilot/lam{lam}/seed_{s}.pkl",
+                "--skip-if-exists", "--quiet",
+            ]})
+    return runs
+
+
+def grid_ppo_nu_weighted(seeds=5):
+    """ν-weighted critic loss on 3 envs spanning the coupling-sign pattern."""
+    runs = []
+    for env, ts in [("Humanoid-v5", 500000),
+                    ("HalfCheetah-v5", 300000),
+                    ("Hopper-v5", 300000)]:
+        for s in range(seeds):
+            runs.append({"args": [
+                "--algo", "ppo", "--env", env, "--seed", str(s),
+                "--total-timesteps", str(ts),
+                "--nu-loss-weight", "1.0",
+                "--output", f"results/ppo_nu_weighted/{env}/seed_{s}.pkl",
+                "--skip-if-exists", "--quiet",
+            ]})
+    return runs
+
+
 GRID_BUILDERS = {
     "ppo_main": grid_ppo_main,
     "ppo_mse": grid_ppo_mse,
@@ -156,6 +188,8 @@ GRID_BUILDERS = {
     "ppo_heldout_humanoid": grid_ppo_heldout_humanoid,
     "ppo_eps_u_variants": grid_ppo_eps_u_variants,
     "recompute_baselines": grid_recompute_baselines,
+    "ppo_nu_pilot": grid_ppo_nu_pilot,
+    "ppo_nu_weighted": grid_ppo_nu_weighted,
 }
 
 def _worker(args):

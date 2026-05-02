@@ -1,0 +1,289 @@
+{
+  "runs": [
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "Humanoid-v5",
+        "--seed",
+        "0",
+        "--total-timesteps",
+        "500000",
+        "--nu-loss-weight",
+        "1.0",
+        "--output",
+        "results/ppo_nu_weighted/Humanoid-v5/seed_0.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "Humanoid-v5",
+        "--seed",
+        "1",
+        "--total-timesteps",
+        "500000",
+        "--nu-loss-weight",
+        "1.0",
+        "--output",
+        "results/ppo_nu_weighted/Humanoid-v5/seed_1.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "Humanoid-v5",
+        "--seed",
+        "2",
+        "--total-timesteps",
+        "500000",
+        "--nu-loss-weight",
+        "1.0",
+        "--output",
+        "results/ppo_nu_weighted/Humanoid-v5/seed_2.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "Humanoid-v5",
+        "--seed",
+        "3",
+        "--total-timesteps",
+        "500000",
+        "--nu-loss-weight",
+        "1.0",
+        "--output",
+        "results/ppo_nu_weighted/Humanoid-v5/seed_3.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "Humanoid-v5",
+        "--seed",
+        "4",
+        "--total-timesteps",
+        "500000",
+        "--nu-loss-weight",
+        "1.0",
+        "--output",
+        "results/ppo_nu_weighted/Humanoid-v5/seed_4.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "HalfCheetah-v5",
+        "--seed",
+        "0",
+        "--total-timesteps",
+        "300000",
+        "--nu-loss-weight",
+        "1.0",
+        "--output",
+        "results/ppo_nu_weighted/HalfCheetah-v5/seed_0.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "HalfCheetah-v5",
+        "--seed",
+        "1",
+        "--total-timesteps",
+        "300000",
+        "--nu-loss-weight",
+        "1.0",
+        "--output",
+        "results/ppo_nu_weighted/HalfCheetah-v5/seed_1.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "HalfCheetah-v5",
+        "--seed",
+        "2",
+        "--total-timesteps",
+        "300000",
+        "--nu-loss-weight",
+        "1.0",
+        "--output",
+        "results/ppo_nu_weighted/HalfCheetah-v5/seed_2.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "HalfCheetah-v5",
+        "--seed",
+        "3",
+        "--total-timesteps",
+        "300000",
+        "--nu-loss-weight",
+        "1.0",
+        "--output",
+        "results/ppo_nu_weighted/HalfCheetah-v5/seed_3.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "HalfCheetah-v5",
+        "--seed",
+        "4",
+        "--total-timesteps",
+        "300000",
+        "--nu-loss-weight",
+        "1.0",
+        "--output",
+        "results/ppo_nu_weighted/HalfCheetah-v5/seed_4.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "Hopper-v5",
+        "--seed",
+        "0",
+        "--total-timesteps",
+        "300000",
+        "--nu-loss-weight",
+        "1.0",
+        "--output",
+        "results/ppo_nu_weighted/Hopper-v5/seed_0.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "Hopper-v5",
+        "--seed",
+        "1",
+        "--total-timesteps",
+        "300000",
+        "--nu-loss-weight",
+        "1.0",
+        "--output",
+        "results/ppo_nu_weighted/Hopper-v5/seed_1.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "Hopper-v5",
+        "--seed",
+        "2",
+        "--total-timesteps",
+        "300000",
+        "--nu-loss-weight",
+        "1.0",
+        "--output",
+        "results/ppo_nu_weighted/Hopper-v5/seed_2.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "Hopper-v5",
+        "--seed",
+        "3",
+        "--total-timesteps",
+        "300000",
+        "--nu-loss-weight",
+        "1.0",
+        "--output",
+        "results/ppo_nu_weighted/Hopper-v5/seed_3.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "Hopper-v5",
+        "--seed",
+        "4",
+        "--total-timesteps",
+        "300000",
+        "--nu-loss-weight",
+        "1.0",
+        "--output",
+        "results/ppo_nu_weighted/Hopper-v5/seed_4.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "rc": 0
+    }
+  ]
+}

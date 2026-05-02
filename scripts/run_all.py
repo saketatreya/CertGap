@@ -71,6 +71,7 @@ def main():
             ("ppo_eps_u_variants", "PPO residual scalarizations", 6),
             ("recompute_baselines", "PPO baseline metrics recompute", 1),
             ("ppo_intervention_check", "PPO gated intervention study", 5),
+            ("ppo_nu_weighted", "PPO ν-weighted critic loss", 5),
         ]
 
         for grid_name, description, seeds_override in grids_to_run:

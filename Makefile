@@ -40,6 +40,7 @@ figures:
 	PYTHONPATH=. $(PY) figures/fig1_powerhouse.py
 	PYTHONPATH=. $(PY) figures/fig2_mechanism.py
 	PYTHONPATH=. $(PY) figures/fig3_factorial.py
+	PYTHONPATH=. $(PY) figures/fig4_nu_weighted.py
 	PYTHONPATH=. $(PY) figures/fig_hyperparam_ranking.py
 	PYTHONPATH=. $(PY) figures/appendix/figA1_dumbbell.py
 	PYTHONPATH=. $(PY) figures/appendix/figA1_tabular_identity.py

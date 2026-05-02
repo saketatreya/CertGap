@@ -128,16 +128,37 @@ def _value_step(
     returns: torch.Tensor,
     epochs: int,
     minibatch_size: int,
-) -> float:
-    """MSE regression of V(s) on GAE returns. Returns final-epoch mean loss."""
+    start_idx: torch.Tensor | None = None,
+    nu_loss_weight: float = 0.0,
+) -> tuple[float, float]:
+    """MSE regression of V(s) on GAE returns.
+
+    When `nu_loss_weight > 0` and `start_idx` is provided, an extra MSE term
+    is added at episode-start states (an empirical proxy for the initial-state
+    distribution ν), targeting the start-state critic bias directly:
+
+        L = MSE(V(s_minibatch), G_minibatch)
+            + nu_loss_weight · MSE(V(s_0), G_at_s_0)
+
+    Returns (last_epoch_mean_total_loss, last_epoch_mean_nu_term). The nu-term
+    is 0 when the regulariser is disabled.
+    """
+    use_nu = (start_idx is not None) and (nu_loss_weight > 0) and (start_idx.numel() > 0)
     last_loss = 0.0
+    last_nu = 0.0
     for epoch in range(epochs):
         epoch_loss = 0.0
+        epoch_nu = 0.0
         n = 0
         for batch_indices in iter_minibatches(states.shape[0], minibatch_size):
             idx = torch.as_tensor(batch_indices, dtype=torch.long, device=states.device)
             preds = value_net(states[idx]).squeeze(-1)
             loss = F.mse_loss(preds, returns[idx])
+            if use_nu:
+                nu_preds = value_net(states[start_idx]).squeeze(-1)
+                nu_term = F.mse_loss(nu_preds, returns[start_idx])
+                loss = loss + nu_loss_weight * nu_term
+                epoch_nu += float(nu_term.item())
             optimizer.zero_grad()
             loss.backward()
             optimizer.step()
@@ -145,7 +166,8 @@ def _value_step(
             n += 1
         if n > 0:
             last_loss = epoch_loss / n
-    return last_loss
+            last_nu = epoch_nu / n
+    return last_loss, last_nu
 
 def _explained_variance(y_pred: np.ndarray, y_true: np.ndarray) -> float:
     """Computes fraction of variance that y_pred explains about y_true.
@@ -345,13 +367,16 @@ def train_ppo(
 
         # 4. Value update → V_{k+1}.
         value_loss_pre = _value_loss_on_batch(value_net, batch.states, batch.returns)
-        _ = _value_step(
+        start_idx = _start_state_indices(batch.dones)  # reused for ν-loss + Δ̂_k
+        _, value_loss_nu = _value_step(
             value_net,
             value_optim,
             batch.states,
             batch.returns,
             cfg.value_epochs,
             cfg.minibatch_size,
+            start_idx=start_idx,
+            nu_loss_weight=cfg.nu_loss_weight,
         )
         value_loss_post = _value_loss_on_batch(value_net, batch.states, batch.returns)
 
@@ -427,6 +452,8 @@ def train_ppo(
         log["policy_entropy"].append(float(policy_entropy))
         log["value_loss_pre"].append(float(value_loss_pre))
         log["value_loss_post"].append(float(value_loss_post))
+        log["value_loss_nu"].append(float(value_loss_nu))
+        log["delta_hat_abs"].append(float(abs(delta_hat_k)) if delta_hat_k == delta_hat_k else float("nan"))
         log["grad_norm"].append(float(grad_norm))
         log["explained_var"].append(float(explained_var))
         log["rejected"].append(float(rejected))

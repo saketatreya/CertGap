@@ -50,6 +50,12 @@ class PPOConfig:
     # Intervention
     gating_threshold: float | None = None
 
+    # ν-weighted critic loss: when > 0, an additional MSE term is evaluated
+    # at episode-start states (the empirical proxy for the initial-state
+    # distribution ν), driving the critic to match returns on $\nu$ directly.
+    # 0.0 reproduces vanilla PPO. See paper §7 ("Targeting the bias directly").
+    nu_loss_weight: float = 0.0
+
     # Logging cadence (per-update log is always written; this controls stdout)
     log_every_updates: int = 10
 

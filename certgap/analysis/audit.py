@@ -26,6 +26,7 @@ ENV_ORDER = [
 AUDIT_SOURCES: list[dict[str, Any]] = [
     {"algo": "PPO", "roots": [Path("results/ppo"), Path("results/main")]},
     {"algo": "PPO-MSE", "roots": [Path("results/ppo_mse")]},
+    {"algo": "PPO-NU", "roots": [Path("results/ppo_nu_weighted")]},
     {"algo": "SAC", "roots": [Path("results/sac")]},
     {"algo": "TRPO", "roots": [Path("results/trpo")]},
 ]

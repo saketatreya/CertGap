@@ -71,6 +71,8 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
         help="Override value_lr for hyperparameter factorial cells.",
     )
     p.add_argument("--gating-threshold", type=float, default=None, help="Start-state bias threshold for update rejection.")
+    p.add_argument("--nu-loss-weight", type=float, default=None,
+                   help="Weight for the ν-weighted critic loss term (0 = vanilla PPO).")
     p.add_argument("--quiet", action="store_true", help="Suppress per-update stdout logging.")
     p.add_argument("--skip-if-exists", action="store_true",
                    help="If output already exists, exit successfully without rerunning.")
@@ -108,6 +110,7 @@ def main(argv: list[str] | None = None) -> int:
             eps_u_kind=args.eps_u_kind,
             heldout_batch_size=args.heldout_batch_size if args.log_heldout else 0,
             gating_threshold=args.gating_threshold,
+            nu_loss_weight=args.nu_loss_weight if args.nu_loss_weight is not None else 0.0,
         )
 
         result = train_ppo(

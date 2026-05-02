@@ -72,3 +72,29 @@ def test_tiny_run_with_heldout() -> None:
     assert "delta_hat_train_k" in log and "delta_hat_heldout_k" in log
     assert np.all(np.isfinite(log["delta_hat_train_k"]))
     assert np.all(np.isfinite(log["delta_hat_heldout_k"]))
+
+
+@pytest.mark.slow
+def test_tiny_run_with_nu_loss() -> None:
+    """Verify PPO with nu_loss_weight > 0 completes and logs the ν-term."""
+    pytest.importorskip("gymnasium")
+    from certgap.ppo import train_ppo
+
+    cfg = PPOConfig(
+        total_timesteps=4096,
+        n_steps=1024,
+        minibatch_size=64,
+        policy_epochs=2,
+        value_epochs=2,
+        nu_loss_weight=1.0,
+    )
+    result = train_ppo(env_id="CartPole-v1", seed=0, cfg=cfg, verbose=False)
+    log = result["log"]
+    # value_loss_nu should be populated with non-zero values
+    assert "value_loss_nu" in log
+    nu_vals = np.asarray(log["value_loss_nu"], dtype=float)
+    assert np.all(np.isfinite(nu_vals))
+    assert np.any(nu_vals > 0), "ν-loss term should be non-zero when enabled"
+    # delta_hat_abs should also be logged
+    assert "delta_hat_abs" in log
+    assert np.all(np.isfinite(log["delta_hat_abs"]))

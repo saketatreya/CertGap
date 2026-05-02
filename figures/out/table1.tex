@@ -23,6 +23,10 @@ PPO-MSE  & Walker2d       &  5 & 0.43 & \textbf{0.62} & 5/5 & 0.031 & 0.41 \\
 PPO-MSE  & Ant            &  5 & 0.45 & \textbf{0.59} & 5/5 & 0.031 & 0.49 \\
 PPO-MSE  & Humanoid       &  5 & 0.53 & \textbf{0.75} & 5/5 & 0.031 & 0.47 \\
 \midrule
+PPO-NU   & Hopper         &  5 & 0.39 & \textbf{0.65} & 5/5 & 0.031 & 0.33 \\
+PPO-NU   & HalfCheetah    &  5 & 0.54 & \textbf{0.58} & 5/5 & 0.031 & 0.42 \\
+PPO-NU   & Humanoid       &  5 & 0.52 & \textbf{0.76} & 5/5 & 0.031 & 0.47 \\
+\midrule
 SAC      & Hopper         &  9 & 0.56 & \textbf{0.72} & 8/9 & 0.027 & 0.40 \\
 SAC      & HalfCheetah    & 10 & 0.51 & \textbf{0.56} & 9/10 & 0.003 & 0.36 \\
 SAC      & Walker2d       & 10 & 0.54 & \textbf{0.78} & 10/10 & 0.001 & 0.45 \\
@@ -32,10 +36,11 @@ TRPO     & Hopper         & 10 & 0.39 & \textbf{0.71} & 10/10 & 0.001 & 0.33 \\
 \midrule
 \textit{pooled} & \textit{PPO} & 159 & 0.45 & \textbf{0.68} & 158/158 & 6e-28 & --- \\
 \textit{pooled} & \textit{PPO-MSE} &  30 & 0.50 & \textbf{0.67} & 30/30 & 9e-10 & --- \\
+\textit{pooled} & \textit{PPO-NU} &  15 & 0.52 & \textbf{0.65} & 15/15 & 3e-05 & --- \\
 \textit{pooled} & \textit{SAC} &  29 & 0.53 & \textbf{0.68} & 27/29 & 7e-07 & --- \\
 \textit{pooled} & \textit{TRPO} &  19 & 0.39 & \textbf{0.74} & 19/19 & 2e-06 & --- \\
 \midrule
-\textbf{ALL} & \textbf{(4 algos, 19 cells)} & \textbf{237} & \textbf{0.46} & \textbf{0.68} & \textbf{234/236} & \textbf{3e-40} & --- \\
+\textbf{ALL} & \textbf{(4 algos, 19 cells)} & \textbf{252} & \textbf{0.46} & \textbf{0.68} & \textbf{249/251} & \textbf{9e-43} & --- \\
 \bottomrule
 \end{tabular}
 \end{table}
