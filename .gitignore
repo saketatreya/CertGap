@@ -11,11 +11,14 @@ venv/
 # OS
 .DS_Store
 Thumbs.db
+*.swp
+*.swo
 
 # IDE
 .idea/
 .vscode/
-*.swp
+.claude/
+.ipynb_checkpoints/
 
 # LaTeX build artefacts
 *.aux
