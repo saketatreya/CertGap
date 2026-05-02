@@ -191,7 +191,7 @@ For any fixed $\epsilon^{\text{fixed}} > 0$ and any $\gamma \in (0, 1)$, there e
 \begin{figure}[t]
 \centering
 \includegraphics[width=\linewidth]{fig1_powerhouse_audit.pdf}
-\caption{\textbf{Headline result.} (Left) Absolute Bellman residual $|\epsilon_u|$ vs.\ ground-truth improvement $\Delta J_k$ on Humanoid-v5 (a representative env): the cloud is flat. (Center) Start-state bias $-\hat\Delta_k$ vs.\ $\Delta J_k$ on the same updates: a clear linear relationship. (Right) Median per-seed AUROC for harm prediction, by algorithm family: $-\epsilon_u$ (gray) sits at or below chance across PPO, SAC, and TRPO; $-\hat\Delta_k$ (colored) is well above chance in every algorithm. The full per-environment table is \Cref{tab:per-env-auroc}.}
+\caption{\textbf{The distribution mismatch decouples value-loss from improvement.} (Panel 1) The rollout distribution $d^\pi$ contains all states traversed in an episode, over which $\epsilon_u$ is optimized. However, actual policy improvement is evaluated strictly at the start states $\nu$. (Panel 2) As a consequence, the absolute Bellman residual $|\epsilon_u|$ is near-blind to ground-truth improvement $\Delta J_k$ (Humanoid-v5, representative run). (Panel 3) In contrast, the start-state bias $-\hat\Delta_k$ exposes the operative relationship. (Panel 4) Median per-seed AUROC for harm prediction: $-\epsilon_u$ (gray) sits at or below chance across PPO, SAC, and TRPO; $-\hat\Delta_k$ (colored) is reliably predictive in every algorithm. Full per-environment table is \Cref{tab:per-env-auroc}.}
 \label{fig:audit-comparison}
 \end{figure}
 

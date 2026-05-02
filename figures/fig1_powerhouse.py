@@ -38,14 +38,14 @@ def draw_mechanism(ax):
     ax.annotate("...", xy=(9.5, 5), xytext=(8.8, 5), arrowprops=dict(arrowstyle="->", lw=2, color="black", ls="--"))
     
     # Label Start State
-    ax.annotate("Improvement Target ($\\nu$)", xy=(2, 6.0), xytext=(2, 8.5),
+    ax.annotate("Improvement Target ($\\nu$)", xy=(2, 6.0), xytext=(2, 7.5),
                 arrowprops=dict(facecolor='#4c78a8', shrink=0.05, width=1, headwidth=6),
-                fontsize=10, color="black", ha="center")
+                fontsize=10, color="black", ha="center", va="bottom")
                 
-    # Label Rollout
-    ax.annotate("Rollout Distribution ($d^\\pi$)\n$\\epsilon_u$ minimized over all states", xy=(6.5, 3.5), xytext=(6.5, 1.5),
-                arrowprops=dict(facecolor='gray', shrink=0.05, width=1, headwidth=6),
-                fontsize=10, color="gray", ha="center")
+    # Bracket for Rollout
+    ax.plot([1.5, 1.5, 8.5, 8.5], [4.1, 3.8, 3.8, 4.1], color="gray", lw=1.5)
+    ax.text(5, 3.4, "Rollout Distribution ($d^\\pi$)\n$\\epsilon_u$ minimized over all states",
+            fontsize=10, color="gray", ha="center", va="top")
 
 def plot_scatters(ax_res, ax_bias):
     with open("results/main/Humanoid-v5/seed_0.pkl", "rb") as f:
