@@ -13,17 +13,20 @@ import time
 from dataclasses import asdict, dataclass
 from typing import Any
 
+import gymnasium as gym
 import numpy as np
 import torch
 import torch.nn.functional as F
 from torch import optim
 
 from certgap.common.networks import PolicyNet, ValueNet
+from pathlib import Path
 from certgap.common.utils import (
     get_device,
     infer_env_spec,
     make_env,
     runtime_metadata,
+    save_json,
     set_global_seeds,
 )
 
@@ -191,13 +194,12 @@ def _update_sac(
 
 
 def _evaluate_policy(
-    env_id: str,
+    env: gym.Env,
     policy: PolicyNet,
     device: torch.device,
     seed: int,
     n_episodes: int,
 ) -> tuple[float, np.ndarray]:
-    env, _, _ = make_env(env_id, seed)
     returns: list[float] = []
     start_states: list[np.ndarray] = []
     for episode in range(n_episodes):
@@ -211,8 +213,44 @@ def _evaluate_policy(
             total += float(reward)
             done = bool(terminated or truncated)
         returns.append(total)
-    env.close()
     return float(np.mean(returns)), np.stack(start_states)
+
+
+def _estimate_resampled_advantage(
+    policy: PolicyNet,
+    q1: ValueNet,
+    q2: ValueNet,
+    prev_policy: PolicyNet,
+    prev_q1: ValueNet,
+    prev_q2: ValueNet,
+    replay: ReplayBuffer,
+    cfg: SACConfig,
+    device: torch.device,
+) -> float:
+    """Estimate A_k using the resampling bypass:
+    A_k = E_{s~D} [ V_k^soft(pi_{k+1}, s) - V_k^soft(pi_k, s) ]
+    where V_k^soft(pi, s) = E_{a~pi} [ Q_k(s,a) - alpha * log pi(a|s) ].
+    """
+    batch_size = min(cfg.residual_batch_size, replay.size)
+    if batch_size == 0:
+        return float("nan")
+    states, _, _, _, _ = replay.sample(batch_size)
+    
+    with torch.no_grad():
+        def get_soft_v(p, q_net1, q_net2, s):
+            v_sum = torch.zeros(batch_size, device=device)
+            for _ in range(cfg.start_state_action_samples):
+                a, logp = _sample_policy(p, s)
+                q = torch.minimum(
+                    q_net1(_q_input(s, a)).squeeze(-1),
+                    q_net2(_q_input(s, a)).squeeze(-1),
+                )
+                v_sum += (q - cfg.alpha * logp)
+            return v_sum / cfg.start_state_action_samples
+
+        v_k_pi_next = get_soft_v(policy, prev_q1, prev_q2, states)
+        v_k_pi_curr = get_soft_v(prev_policy, prev_q1, prev_q2, states)
+        return float((v_k_pi_next - v_k_pi_curr).mean().item())
 
 
 def _estimate_start_state_value(
@@ -296,6 +334,7 @@ def train_sac(
     cfg: SACConfig | None = None,
     *,
     verbose: bool = True,
+    heartbeat_path: Path | None = None,
 ) -> dict[str, Any]:
     """Run one SAC seed and return checkpoint-level diagnostic logs."""
     cfg = cfg or SACConfig()
@@ -320,9 +359,16 @@ def train_sac(
     replay = ReplayBuffer(env_spec.state_dim, env_spec.action_dim, cfg.replay_size, device)
 
     obs, _ = env.reset(seed=seed)
+    eval_env, _, _ = make_env(env_id, seed + 1000)
     log = _empty_log()
     last_losses = {"q_loss": float("nan"), "policy_loss": float("nan"), "policy_entropy": float("nan")}
     prev_J: float | None = None
+    
+    # Pre-allocate previous state networks
+    prev_policy = _build_policy_net(env_spec, device, cfg.hidden_sizes)
+    prev_q1 = ValueNet(env_spec.state_dim + env_spec.action_dim, hidden=cfg.hidden_sizes).to(device)
+    prev_q2 = ValueNet(env_spec.state_dim + env_spec.action_dim, hidden=cfg.hidden_sizes).to(device)
+    
     start_time = time.time()
     checkpoint_idx = 0
 
@@ -339,6 +385,18 @@ def train_sac(
         if done:
             obs, _ = env.reset()
 
+        if step % 500 == 0:
+            if heartbeat_path:
+                save_json(
+                    {
+                        "timesteps": step,
+                        "total": cfg.total_timesteps,
+                        "update_idx": checkpoint_idx,
+                        "timestamp": time.time(),
+                    },
+                    heartbeat_path,
+                )
+
         if replay.size >= cfg.batch_size and step > cfg.learning_starts and step % cfg.train_freq == 0:
             last_losses = _update_sac(
                 policy,
@@ -354,14 +412,21 @@ def train_sac(
 
         if step % cfg.checkpoint_interval == 0 or step == cfg.total_timesteps:
             eval_seed = seed + 10_000 + checkpoint_idx * 100
-            J_k, start_states = _evaluate_policy(env_id, policy, device, eval_seed, cfg.eval_episodes)
+            J_k, start_states = _evaluate_policy(eval_env, policy, device, eval_seed, cfg.eval_episodes)
             residuals = (
                 _compute_residuals(policy, q1, q2, target_q1, target_q2, replay, cfg)
                 if replay.size > 0
                 else {"eps_u_mse": float("nan"), "eps_u_sup": float("nan"), "eps_u_p95": float("nan")}
             )
             start_value = _estimate_start_state_value(policy, q1, q2, start_states, cfg, device)
-            delta_hat_k = J_k - start_value
+            
+            delta_hat_k = float("nan")
+            A_k = float("nan")
+            if prev_J is not None:
+                delta_hat_k = prev_J - start_value
+                A_k = _estimate_resampled_advantage(
+                    policy, q1, q2, prev_policy, prev_q1, prev_q2, replay, cfg, device
+                )
 
             log["update_idx"].append(checkpoint_idx)
             log["timesteps"].append(step)
@@ -373,8 +438,8 @@ def train_sac(
             log["eps_u_p95"].append(float(residuals["eps_u_p95"]))
             log["eps_u_sup"].append(float(residuals["eps_u_sup"]))
             log["delta_hat_k"].append(float(delta_hat_k))
-            log["A_k"].append(float("nan"))
-            log["cert_gap_k"].append(float("nan"))
+            log["A_k"].append(float(A_k))
+            log["cert_gap_k"].append(float(A_k - delta_hat_k) if not np.isnan(A_k) else float("nan"))
             log["q_loss"].append(float(last_losses["q_loss"]))
             log["policy_loss"].append(float(last_losses["policy_loss"]))
             log["policy_entropy"].append(float(last_losses["policy_entropy"]))
@@ -382,11 +447,17 @@ def train_sac(
             log["replay_size"].append(float(replay.size))
             log["n_eval_episodes"].append(float(cfg.eval_episodes))
 
+
             if prev_J is not None and len(log["J_k"]) > 1:
                 delta = J_k - prev_J
                 log["delta_J_k"][-2] = float(delta)
                 log["harmful_k"][-2] = float(delta < 0)
+
+            # Update prev state for next checkpoint
             prev_J = J_k
+            prev_policy.load_state_dict(policy.state_dict())
+            prev_q1.load_state_dict(q1.state_dict())
+            prev_q2.load_state_dict(q2.state_dict())
 
             if verbose and (
                 checkpoint_idx % cfg.log_every_checkpoints == 0
@@ -400,6 +471,7 @@ def train_sac(
             checkpoint_idx += 1
 
     env.close()
+    eval_env.close()
     runtime_seconds = time.time() - start_time
     metadata = runtime_metadata(
         env_id=env_id,

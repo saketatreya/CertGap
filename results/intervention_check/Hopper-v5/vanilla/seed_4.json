@@ -1,0 +1,11 @@
+{
+  "algo": "ppo",
+  "env_id": "Hopper-v5",
+  "final_J": 802.8158639921219,
+  "median_cert_gap": -359.6406537359504,
+  "median_eps_u": 1.9153752326965332,
+  "n_updates": 147,
+  "resolved_env_id": "Hopper-v5",
+  "runtime_seconds": 621.5928797721863,
+  "seed": 4
+}

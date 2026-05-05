@@ -14,11 +14,11 @@ the operative covariate-shift quantity.
 
 | Diagnostic | Pooled median AUROC | Wins (paired) |
 |---|---|---|
-| $-\epsilon_u$ (Bellman residual) | 0.46 | 2 / 236 |
-| $-\hat\Delta_k$ (start-state bias) | **0.68** | **234 / 236** |
+| $-\epsilon_u$ (Bellman residual) | 0.46 | 5 / 262 |
+| $-\hat\Delta_k$ (start-state bias) | **0.67** | **256 / 262** |
 
-237 seeds across PPO, the PPO-MSE ablation, SAC, and TRPO; 8 environments;
-~86,000 logged actor–critic updates. Paired Wilcoxon $p < 10^{-40}$.
+263 seeds across PPO, the PPO-MSE ablation, SAC, and TRPO; 8 environments;
+~90,000 logged actor–critic updates. Paired Wilcoxon $p < 10^{-43}$.
 
 ## Repository layout
 
@@ -26,7 +26,7 @@ the operative covariate-shift quantity.
 certgap/      Core PPO / SAC / TRPO implementation with paper-aligned logging
 figures/      Figure scripts (one per paper figure) -> figures/out/
 paper/        paper.tex, references.bib, neurips_2026.sty, checklist.tex
-results/      Cached audit pickles (~86k updates, 237 seeds)
+results/      Cached audit pickles (~90k updates, 263 seeds)
 scripts/      run_all.py master runner + diagnostic utilities
 tests/        Smoke tests
 ```

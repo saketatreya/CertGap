@@ -38,9 +38,12 @@ def grid_ppo_mse(seeds=5):
 
 def grid_sac_main(seeds=10):
     runs = []
-    for env in ["Hopper-v5", "HalfCheetah-v5", "Walker2d-v5"]:
+    for env, ts in [
+        ("Hopper-v5", "200000"), ("HalfCheetah-v5", "200000"), ("Walker2d-v5", "200000"),
+        ("Ant-v5", "300000"), ("Humanoid-v5", "500000")
+    ]:
         for s in range(seeds):
-            runs.append({"args": ["--algo", "sac", "--env", env, "--seed", str(s), "--total-timesteps", "200000", "--output", f"results/sac/{env}/seed_{s}.pkl", "--skip-if-exists", "--quiet"]})
+            runs.append({"args": ["--algo", "sac", "--env", env, "--seed", str(s), "--total-timesteps", ts, "--output", f"results/sac/{env}/seed_{s}.pkl", "--skip-if-exists", "--quiet"]})
     return runs
 
 def grid_trpo_pilot(seeds=10):
@@ -51,11 +54,18 @@ def grid_trpo_pilot(seeds=10):
     return runs
 
 def grid_ppo_intervention_check(seeds=5):
+    """Checkpoint-rollback gate on hat-Delta_k. Thresholds calibrated per env to
+    match a ~35% rejection rate (the Humanoid 161 operating point)."""
     runs = []
-    for s in range(seeds):
-        runs.append({"args": ["--algo", "ppo", "--env", "Humanoid-v5", "--seed", str(s), "--total-timesteps", "500000", "--output", f"results/intervention_check/vanilla/seed_{s}.pkl", "--skip-if-exists", "--quiet"]})
-    for s in range(seeds):
-        runs.append({"args": ["--algo", "ppo", "--env", "Humanoid-v5", "--seed", str(s), "--total-timesteps", "500000", "--gating-threshold", "161", "--output", f"results/intervention_check/gated/seed_{s}.pkl", "--skip-if-exists", "--quiet"]})
+    env_thresholds = [
+        ("Humanoid-v5", 500000, "161"),
+        ("Hopper-v5",   300000, "266"),
+    ]
+    for env, ts, thresh in env_thresholds:
+        for s in range(seeds):
+            runs.append({"args": ["--algo", "ppo", "--env", env, "--seed", str(s), "--total-timesteps", str(ts), "--output", f"results/intervention_check/{env}/vanilla/seed_{s}.pkl", "--skip-if-exists", "--quiet"]})
+        for s in range(seeds):
+            runs.append({"args": ["--algo", "ppo", "--env", env, "--seed", str(s), "--total-timesteps", str(ts), "--gating-threshold", thresh, "--output", f"results/intervention_check/{env}/gated/seed_{s}.pkl", "--skip-if-exists", "--quiet"]})
     return runs
 
 def grid_recompute_baselines():

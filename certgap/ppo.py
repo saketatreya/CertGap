@@ -303,7 +303,7 @@ def train_ppo(
     heldout_eps_length = 0
 
     keys = per_update_log_keys(
-        log_heldout=log_heldout, log_eps_u_variants=log_eps_u_variants
+        log_heldout=log_heldout, log_eps_u_variants=log_eps_u_variants, log_heldout_mse=log_heldout
     )
     log = _empty_log(keys)
 
@@ -437,6 +437,7 @@ def train_ppo(
             )
             delta_hat_heldout_k = _delta_hat_residual(value_net, heldout_batch, cfg.gamma)
             J_heldout_k = _mean_episode_return(heldout_batch)
+            heldout_value_loss = _value_loss_on_batch(value_net, heldout_batch.states, heldout_batch.returns)
 
         # 8. Lag-one ΔJ: filled in at *next* update; here we tag prev row.
         log["update_idx"].append(update)
@@ -466,6 +467,7 @@ def train_ppo(
             log["delta_hat_train_k"].append(float(delta_hat_train_k))      # type: ignore[arg-type]
             log["delta_hat_heldout_k"].append(float(delta_hat_heldout_k))  # type: ignore[arg-type]
             log["J_heldout_k"].append(float(J_heldout_k))                 # type: ignore[arg-type]
+            log["heldout_value_loss"].append(float(heldout_value_loss))    # type: ignore[arg-type]
 
         # patch prev row's lag-one ΔJ
         if prev_J is not None and update > 0:

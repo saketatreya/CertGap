@@ -1,0 +1,364 @@
+{
+  "runs": [
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "Humanoid-v5",
+        "--seed",
+        "0",
+        "--total-timesteps",
+        "500000",
+        "--output",
+        "results/intervention_check/Humanoid-v5/vanilla/seed_0.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "Humanoid-v5",
+        "--seed",
+        "1",
+        "--total-timesteps",
+        "500000",
+        "--output",
+        "results/intervention_check/Humanoid-v5/vanilla/seed_1.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "Humanoid-v5",
+        "--seed",
+        "2",
+        "--total-timesteps",
+        "500000",
+        "--output",
+        "results/intervention_check/Humanoid-v5/vanilla/seed_2.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "Humanoid-v5",
+        "--seed",
+        "3",
+        "--total-timesteps",
+        "500000",
+        "--output",
+        "results/intervention_check/Humanoid-v5/vanilla/seed_3.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "Humanoid-v5",
+        "--seed",
+        "4",
+        "--total-timesteps",
+        "500000",
+        "--output",
+        "results/intervention_check/Humanoid-v5/vanilla/seed_4.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "Humanoid-v5",
+        "--seed",
+        "0",
+        "--total-timesteps",
+        "500000",
+        "--gating-threshold",
+        "161",
+        "--output",
+        "results/intervention_check/Humanoid-v5/gated/seed_0.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "Humanoid-v5",
+        "--seed",
+        "1",
+        "--total-timesteps",
+        "500000",
+        "--gating-threshold",
+        "161",
+        "--output",
+        "results/intervention_check/Humanoid-v5/gated/seed_1.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "Humanoid-v5",
+        "--seed",
+        "2",
+        "--total-timesteps",
+        "500000",
+        "--gating-threshold",
+        "161",
+        "--output",
+        "results/intervention_check/Humanoid-v5/gated/seed_2.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "Humanoid-v5",
+        "--seed",
+        "3",
+        "--total-timesteps",
+        "500000",
+        "--gating-threshold",
+        "161",
+        "--output",
+        "results/intervention_check/Humanoid-v5/gated/seed_3.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "Humanoid-v5",
+        "--seed",
+        "4",
+        "--total-timesteps",
+        "500000",
+        "--gating-threshold",
+        "161",
+        "--output",
+        "results/intervention_check/Humanoid-v5/gated/seed_4.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "Hopper-v5",
+        "--seed",
+        "0",
+        "--total-timesteps",
+        "300000",
+        "--output",
+        "results/intervention_check/Hopper-v5/vanilla/seed_0.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "Hopper-v5",
+        "--seed",
+        "1",
+        "--total-timesteps",
+        "300000",
+        "--output",
+        "results/intervention_check/Hopper-v5/vanilla/seed_1.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "Hopper-v5",
+        "--seed",
+        "2",
+        "--total-timesteps",
+        "300000",
+        "--output",
+        "results/intervention_check/Hopper-v5/vanilla/seed_2.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "Hopper-v5",
+        "--seed",
+        "3",
+        "--total-timesteps",
+        "300000",
+        "--output",
+        "results/intervention_check/Hopper-v5/vanilla/seed_3.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "Hopper-v5",
+        "--seed",
+        "4",
+        "--total-timesteps",
+        "300000",
+        "--output",
+        "results/intervention_check/Hopper-v5/vanilla/seed_4.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "Hopper-v5",
+        "--seed",
+        "0",
+        "--total-timesteps",
+        "300000",
+        "--gating-threshold",
+        "266",
+        "--output",
+        "results/intervention_check/Hopper-v5/gated/seed_0.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "Hopper-v5",
+        "--seed",
+        "1",
+        "--total-timesteps",
+        "300000",
+        "--gating-threshold",
+        "266",
+        "--output",
+        "results/intervention_check/Hopper-v5/gated/seed_1.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "Hopper-v5",
+        "--seed",
+        "2",
+        "--total-timesteps",
+        "300000",
+        "--gating-threshold",
+        "266",
+        "--output",
+        "results/intervention_check/Hopper-v5/gated/seed_2.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "Hopper-v5",
+        "--seed",
+        "3",
+        "--total-timesteps",
+        "300000",
+        "--gating-threshold",
+        "266",
+        "--output",
+        "results/intervention_check/Hopper-v5/gated/seed_3.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "rc": 0
+    },
+    {
+      "args": [
+        "--algo",
+        "ppo",
+        "--env",
+        "Hopper-v5",
+        "--seed",
+        "4",
+        "--total-timesteps",
+        "300000",
+        "--gating-threshold",
+        "266",
+        "--output",
+        "results/intervention_check/Hopper-v5/gated/seed_4.pkl",
+        "--skip-if-exists",
+        "--quiet"
+      ],
+      "rc": 0
+    }
+  ]
+}

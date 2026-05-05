@@ -15,9 +15,10 @@ def out_path(name: str) -> Path:
     p.parent.mkdir(parents=True, exist_ok=True)
     return p
 
-def collect_humanoid_data():
+def collect_env_data(env):
+    """Concatenate (A_k, delta_hat_k, delta_J_k) across all seeds of an env."""
     all_A, all_dh, all_dj = [], [], []
-    root = Path("results/main/Humanoid-v5")
+    root = Path(f"results/main/{env}")
     for p in root.glob("seed_*.pkl"):
         with p.open("rb") as f:
             log = pickle.load(f)["log"]
@@ -27,41 +28,59 @@ def collect_humanoid_data():
             all_dj.extend(log["delta_J_k"][mask])
     return np.array(all_A), np.array(all_dh), np.array(all_dj)
 
+
+def collect_humanoid_data():
+    return collect_env_data("Humanoid-v5")
+
+
+def _pareto_xy(dh, dj, n_points=50):
+    thresholds = np.linspace(np.percentile(dh, 5), np.percentile(dh, 95), n_points)
+    harmful_total = (dj < 0).sum()
+    imp_total = dj[dj > 0].sum()
+    hp = np.array([((dj < 0) & (dh > t)).sum() / harmful_total for t in thresholds])
+    ik = np.array([1.0 - (dj[(dj > 0) & (dh > t)].sum() / imp_total) for t in thresholds])
+    return hp, ik
+
+
 def plot_ak_paradox(ax1, ax2):
     A, dh, dj = collect_humanoid_data()
-    
-    hb1 = ax1.hexbin(A, dj, gridsize=25, cmap='Reds', mincnt=1, alpha=0.8)
+
+    ax1.hexbin(A, dj, gridsize=25, cmap='Reds', mincnt=1, alpha=0.8)
     ax1.set_xlabel(r"Surrogate Advantage $A_k$")
     ax1.set_ylabel(r"Actual Improvement $\Delta J$")
     ax1.set_title("The $A_k$ Paradox")
-    
-    hb2 = ax2.hexbin(A, dh, gridsize=25, cmap='Blues', mincnt=1, alpha=0.8)
+
+    ax2.hexbin(A, dh, gridsize=25, cmap='Blues', mincnt=1, alpha=0.8)
     ax2.set_xlabel(r"Surrogate Advantage $A_k$")
     ax2.set_ylabel(r"Start-State Bias $\hat\Delta_k$")
     ax2.set_title("The Overfitting Coupling")
 
+
 def plot_pareto(ax):
-    # This matches the simulation logic in scripts/simulate_early_stopping.py
-    A, dh, dj = collect_humanoid_data()
-    thresholds = np.linspace(np.percentile(dh, 5), np.percentile(dh, 95), 50)
-    
-    hp_fracs, ik_fracs = [], []
-    harmful_total = (dj < 0).sum()
-    imp_total = dj[dj > 0].sum()
-    
-    for t in thresholds:
-        hp_fracs.append(((dj < 0) & (dh > t)).sum() / harmful_total)
-        ik_fracs.append(1.0 - (dj[(dj > 0) & (dh > t)].sum() / imp_total))
-        
-    ax.plot(hp_fracs, ik_fracs, "o-", markersize=3, color="#2ca02c")
+    """Pareto frontier of post-hoc threshold sweep on hat-Delta_k.
+
+    Overlays the canonical high-variance env (Humanoid-v5) and a second env
+    (Hopper-v5) to show the gate generalises beyond a single environment.
+    """
+    envs = [
+        ("Humanoid-v5", "#2ca02c", "o", "Humanoid"),
+        ("Hopper-v5",   "#d62728", "s", "Hopper"),
+    ]
+    for env, color, marker, label in envs:
+        A, dh, dj = collect_env_data(env)
+        if len(dh) == 0:
+            continue
+        hp, ik = _pareto_xy(dh, dj)
+        ax.plot(hp, ik, linestyle="-", marker=marker, markersize=3.5,
+                color=color, label=label, alpha=0.85)
+
     ax.set_xlabel("Harmful Updates Prevented")
     ax.set_ylabel("Improvement Retained")
-    ax.set_title("Intervention Pareto")
+    ax.set_title("Intervention Pareto (post-hoc gate)")
     ax.grid(True, alpha=0.2)
-    
-    # Annotate the 60/80 point
-    ax.annotate("60% Harm Prevented\n82% Imp Retained", xy=(0.6, 0.82), xytext=(0.3, 0.6),
-                arrowprops=dict(arrowstyle="->", connectionstyle="arc3,rad=.2"))
+    ax.legend(loc="lower left", fontsize=9, frameon=True)
+    ax.set_xlim(-0.02, 1.02)
+    ax.set_ylim(-0.02, 1.02)
 
 def main():
     fig = plt.figure(figsize=(12, 4))

@@ -1,0 +1,11 @@
+{
+  "algo": "sac",
+  "env_id": "Ant-v5",
+  "final_J": 474.14895654952016,
+  "median_cert_gap": -318.78906340361726,
+  "median_eps_u": 4.652019739151001,
+  "n_updates": 60,
+  "resolved_env_id": "Ant-v5",
+  "runtime_seconds": 4222.170285701752,
+  "seed": 9
+}

@@ -140,7 +140,10 @@ def compute_policy_entropy_discrete(probs: torch.Tensor, eps: float = 1e-8) -> f
 
 
 def per_update_log_keys(
-    *, log_heldout: bool = False, log_eps_u_variants: bool = False
+    *,
+    log_heldout: bool = False,
+    log_eps_u_variants: bool = False,
+    log_heldout_mse: bool = False,
 ) -> list[str]:
     """Canonical schema. Every key here ends up as a same-length 1-D array
     in the per-seed pickle. Length = number of PPO updates in the run.
@@ -170,6 +173,8 @@ def per_update_log_keys(
         keys += ["eps_u_mse", "eps_u_sup", "eps_u_p95"]
     if log_heldout:
         keys += ["delta_hat_train_k", "delta_hat_heldout_k", "J_heldout_k"]
+    if log_heldout_mse:
+        keys += ["heldout_value_loss"]
     return keys
 
 

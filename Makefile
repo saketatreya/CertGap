@@ -52,7 +52,6 @@ paper: figures
 	cd paper && bibtex paper
 	cd paper && pdflatex -interaction=nonstopmode paper.tex
 	cd paper && pdflatex -interaction=nonstopmode paper.tex
-	cd paper && rm -f paper.aux paper.bbl paper.blg paper.log paper.out paper.toc
 
 verify:
 	$(PYTEST) tests/

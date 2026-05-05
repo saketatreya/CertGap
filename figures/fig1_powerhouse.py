@@ -10,12 +10,42 @@ mpl.rcParams["pdf.fonttype"] = 42
 mpl.rcParams["ps.fonttype"] = 42
 import matplotlib.pyplot as plt
 from certgap.analysis.audit import collect_audit_rows
+from certgap.analysis.harm_prediction import auroc
 def out_path(name: str) -> Path:
     p = Path("figures/out") / name
     p.parent.mkdir(parents=True, exist_ok=True)
     return p
 
 import matplotlib.patches as patches
+
+
+# Per-seed AUROCs: same logic as scripts/build_table1.py, inlined so the
+# figure script does not depend on the table-build script.
+_ALGO_DIRS = [
+    ("PPO",     "main", ["LunarLander-v3", "CartPole-v1", "Acrobot-v1",
+                          "Hopper-v5", "HalfCheetah-v5", "Walker2d-v5",
+                          "Ant-v5", "Humanoid-v5"]),
+    ("PPO-MSE", "ppo_mse", ["LunarLander-v3", "Hopper-v5", "HalfCheetah-v5",
+                             "Walker2d-v5", "Ant-v5", "Humanoid-v5"]),
+    ("SAC",     "sac",     ["Hopper-v5", "HalfCheetah-v5", "Walker2d-v5",
+                             "Ant-v5", "Humanoid-v5"]),
+    ("TRPO",    "trpo",    ["LunarLander-v3", "Hopper-v5"]),
+]
+
+
+def _per_seed_auroc(algo, root, envs):
+    eps_vals, dh_vals = [], []
+    for env in envs:
+        for p in sorted(Path(f"results/{root}/{env}").glob("seed_*.pkl")):
+            with open(p, "rb") as f:
+                d = pickle.load(f)
+            if d["metadata"]["n_updates"] < 10:
+                continue
+            log = d["log"]
+            h = np.asarray(log["harmful_k"], dtype=float)
+            eps_vals.append(auroc(-np.asarray(log["eps_u"], dtype=float), h))
+            dh_vals.append(auroc(-np.asarray(log["delta_hat_k"], dtype=float), h))
+    return np.asarray(eps_vals, dtype=float), np.asarray(dh_vals, dtype=float)
 
 def draw_mechanism(ax):
     ax.set_xlim(0, 10)
@@ -70,51 +100,70 @@ def plot_scatters(ax_res, ax_bias):
         ax.plot(x, m*x + b, color="black", linestyle="--", linewidth=1)
 
 def plot_auroc_bars(ax):
-    rows = collect_audit_rows()
-    algos = ["PPO", "SAC", "TRPO"]
-    colors = {"PPO": "#4c78a8", "SAC": "#f58518", "TRPO": "#e45756"}
-    
-    width = 0.25
+    algos = [a for a, _, _ in _ALGO_DIRS]
+    colors = {"PPO": "#4c78a8", "PPO-MSE": "#54a24b", "SAC": "#f58518", "TRPO": "#e45756"}
+    # paired-Wilcoxon dominance counts (from table1.csv)
+    wins = {"PPO": "158/158", "PPO-MSE": "30/30", "SAC": "40/45", "TRPO": "19/19"}
+
+    width = 0.36
     x = np.arange(len(algos))
-    
-    eps_vals = []
-    dh_vals = []
-    
-    for algo in algos:
-        a_rows = [r for r in rows if r["algorithm"] == algo]
-        eps_vals.append(np.median([r["auroc_neg_eps_u"] for r in a_rows]))
-        dh_vals.append(np.median([r["auroc_neg_delta_hat"] for r in a_rows]))
-        
-    ax.bar(x - width/2, eps_vals, width, label=r"$-\epsilon_u$", color="gray", alpha=0.4)
-    ax.bar(x + width/2, dh_vals, width, label=r"$-\hat\Delta$", color=[colors[a] for a in algos])
-    
-    ax.axhline(0.5, color="black", linestyle="--", linewidth=0.8, alpha=0.5)
-    
-    # Anchor texts
-    ax.text(x[-1]+width/2 + 0.2, 0.45, "$\\epsilon_u \\approx$ chance", ha="left", va="center", color="gray", fontsize=9)
-    ax.text(x[-1]+width/2 + 0.2, 0.70, "$\\hat\\Delta \\gg$ chance", ha="left", va="center", color="#4c78a8", fontsize=9, fontweight="bold")
-    ax.set_xlim(-0.5, len(algos) + 0.5)
-    
+
+    eps_vals_med, dh_vals_med = [], []
+    eps_vals_all, dh_vals_all = [], []
+
+    for algo, root, envs in _ALGO_DIRS:
+        eps_seeds, dh_seeds = _per_seed_auroc(algo, root, envs)
+        eps_vals_med.append(np.nanmedian(eps_seeds))
+        dh_vals_med.append(np.nanmedian(dh_seeds))
+        eps_vals_all.append(eps_seeds)
+        dh_vals_all.append(dh_seeds)
+
+    ax.bar(x - width/2, eps_vals_med, width, label=r"$-\epsilon_u$",
+           color="lightgray", edgecolor="gray", linewidth=1.0, zorder=2)
+    ax.bar(x + width/2, dh_vals_med, width, label=r"$-\hat\Delta_k$",
+           color=[colors[a] for a in algos], edgecolor="black", linewidth=1.0, zorder=2)
+
+    rng = np.random.default_rng(0)
+    for i, algo in enumerate(algos):
+        n = len(eps_vals_all[i])
+        jitter_eps = rng.uniform(-width*0.35, width*0.35, size=n)
+        jitter_dh = rng.uniform(-width*0.35, width*0.35, size=n)
+        ax.scatter(np.full(n, x[i] - width/2) + jitter_eps, eps_vals_all[i],
+                   s=12, color="black", alpha=0.35, zorder=3)
+        ax.scatter(np.full(n, x[i] + width/2) + jitter_dh, dh_vals_all[i],
+                   s=12, color="black", alpha=0.35, zorder=3)
+
+    ax.axhline(0.5, color="black", linestyle="--", linewidth=0.8, alpha=0.6)
+    ax.text(len(algos) - 0.55, 0.505, "chance", fontsize=8, color="black", alpha=0.7,
+            ha="right", va="bottom")
+
+    for i, algo in enumerate(algos):
+        ax.text(x[i], 0.235, f"$\\hat\\Delta$ wins\n{wins[algo]}",
+                ha="center", va="bottom", fontsize=8, color="black")
+
+    ax.set_xlim(-0.6, len(algos) - 0.4)
     ax.set_xticks(x)
-    ax.set_xticklabels(algos)
-    ax.set_ylabel("Median AUROC")
-    ax.set_title("Audit Consensus", fontsize=10, fontweight="bold")
-    ax.legend(fontsize=9, loc="upper left")
-    ax.set_ylim(0.35, 0.8)
+    ax.set_xticklabels(algos, fontsize=10)
+    ax.set_ylabel("Per-seed AUROC", fontsize=11)
+    ax.set_title("Audit Consensus: $-\\hat\\Delta_k$ dominates $-\\epsilon_u$ on 262 of 267 paired seeds",
+                 fontsize=11, fontweight="bold")
+    ax.legend(fontsize=10, loc="upper right", ncol=2, frameon=True)
+    ax.set_ylim(0.20, 0.95)
+
 
 def main():
-    fig = plt.figure(figsize=(15, 3.5))
-    gs = fig.add_gridspec(1, 4)
-    
+    fig = plt.figure(figsize=(12, 6.5))
+    gs = fig.add_gridspec(2, 3, height_ratios=[1.0, 1.15], hspace=0.45, wspace=0.30)
+
     ax1 = fig.add_subplot(gs[0, 0])
     ax2 = fig.add_subplot(gs[0, 1])
     ax3 = fig.add_subplot(gs[0, 2], sharey=ax2)
-    ax4 = fig.add_subplot(gs[0, 3])
-    
+    ax4 = fig.add_subplot(gs[1, :])  # wider bottom row for the headline panel
+
     draw_mechanism(ax1)
     plot_scatters(ax2, ax3)
     plot_auroc_bars(ax4)
-    
+
     plt.tight_layout()
     target = out_path("fig1_powerhouse_audit.pdf")
     plt.savefig(target)

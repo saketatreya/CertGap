@@ -30,10 +30,11 @@ ALGOS = [
         "Hopper-v5", "HalfCheetah-v5", "Walker2d-v5", "Ant-v5", "Humanoid-v5",
     ]),
     ("PPO-MSE", "ppo_mse", [
-        "LunarLander-v3", "Hopper-v5", "HalfCheetah-v5", "Walker2d-v5", "Ant-v5", "Humanoid-v5",
+        "LunarLander-v3", "CartPole-v1", "Acrobot-v1",
+        "Hopper-v5", "HalfCheetah-v5", "Walker2d-v5", "Ant-v5", "Humanoid-v5",
     ]),
     ("PPO-NU",  "ppo_nu_weighted", ["Hopper-v5", "HalfCheetah-v5", "Humanoid-v5"]),
-    ("SAC",     "sac",  ["Hopper-v5", "HalfCheetah-v5", "Walker2d-v5"]),
+    ("SAC",     "sac",  ["Hopper-v5", "HalfCheetah-v5", "Walker2d-v5", "Ant-v5", "Humanoid-v5"]),
     ("TRPO",    "trpo", ["LunarLander-v3", "Hopper-v5"]),
 ]
 
@@ -85,8 +86,9 @@ def main() -> None:
             dh_arr = per_seed_auroc(seeds, "delta_hat_k", -1)
             pooled[algo]["eps"].extend(eps_arr.tolist())
             pooled[algo]["dh"].extend(dh_arr.tolist())
-            grand["eps"].extend(eps_arr.tolist())
-            grand["dh"].extend(dh_arr.tolist())
+            if algo != "PPO-NU":
+                grand["eps"].extend(eps_arr.tolist())
+                grand["dh"].extend(dh_arr.tolist())
             mask = np.isfinite(eps_arr) & np.isfinite(dh_arr)
             wins = int(np.sum(dh_arr[mask] > eps_arr[mask]))
             n_pairs = int(mask.sum())
@@ -213,7 +215,7 @@ def main() -> None:
     p = grand_row["wilcoxon_p"]
     p_str = f"{p:.0e}" if np.isfinite(p) else "---"
     lines.append(
-        f"\\textbf{{ALL}} & \\textbf{{(4 algos, 19 cells)}} & "
+        f"\\textbf{{ALL}} & \\textbf{{(4 algos, 23 cells)}} & "
         f"\\textbf{{{grand_row['n_seeds']}}} & "
         f"\\textbf{{{grand_row['auroc_eps_u_neg']:.2f}}} & "
         f"\\textbf{{{grand_row['auroc_dhat_neg']:.2f}}} & "

@@ -143,6 +143,7 @@ def main(argv: list[str] | None = None) -> int:
             seed=args.seed,
             cfg=cfg,
             verbose=not args.quiet,
+            heartbeat_path=output.with_suffix(".heartbeat"),
         )
     else:
         cfg = TRPOConfig(
